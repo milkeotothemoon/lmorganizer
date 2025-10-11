@@ -1,5 +1,12 @@
-Helloo this is the website:)
+# Helloo this is the website!:)
+
 Features:
-Student Notes Upload feature
-AI tutor
-Search bar
+- Student Notes upload feature
+- AI tutor
+- Search bar
+
+To be added:
+- Pomodoro Timer
+- Credits lol
+
+<sub> Manifesting this goes well... </sub>
