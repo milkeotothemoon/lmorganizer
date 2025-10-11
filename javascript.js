@@ -146,7 +146,7 @@ async function loadFiles(subject) {
   });
 }
 
-//loadFiles("Contemp");
-//loadFiles("MIL");
-//loadFiles("Philo");
-//loadFiles("PE");
+loadFiles("Contemp");
+loadFiles("MIL");
+loadFiles("Philo");
+loadFiles("PE");
