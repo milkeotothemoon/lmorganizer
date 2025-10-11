@@ -24,3 +24,6 @@ v1.4 251008
 v1.5 251009
   Added Search bar
   Added AI QnA Chatbot
+
+v1.6 251011
+  FULL RELEASE
