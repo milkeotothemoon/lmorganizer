@@ -7,6 +7,7 @@ Features:
 
 To be added:
 - Pomodoro Timer
-- Credits lol
+- Lesson Randomizer
+- Credits
 
 <sub> Manifesting this goes well... </sub>
