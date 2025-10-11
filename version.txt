@@ -1,0 +1,26 @@
+v1.0 250831
+  Launched Website
+
+v1.1 250903
+  Connected to Supabase
+  Added Upload functionality
+
+v1.2 250915
+  Improved file formatting
+  Added separated folders per subject
+
+v1.3p 250921
+  Test prototype Added
+
+v1.4 251008
+  Removed non-core subjects
+  Design Revamp
+    Logo
+    Finished Responsiveness
+    Font change
+      Helvetica -> Inter Medium
+      Poppins -> Inter Regular
+
+v1.5 251009
+  Added Search bar
+  Added AI QnA Chatbot

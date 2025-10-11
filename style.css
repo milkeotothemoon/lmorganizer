@@ -1,0 +1,383 @@
+body {
+  font-family: 'Inter-Regular', sans-serif;
+  color: #111111;
+  margin: 0;
+  padding: 5px;
+}
+
+h1 {
+  font-family: Inter-Medium;
+  font-size: clamp(40px, 8vw, 50px);
+  margin-left: 20px;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Inter-Medium';
+  src: url('https://gshpbwgfehncdlcomqbl.supabase.co/storage/v1/object/public/Storage/Inter-Medium.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter-Regular';
+  src: url('https://gshpbwgfehncdlcomqbl.supabase.co/storage/v1/object/public/Storage/Inter-Regular.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.heading {
+  display: flex;
+  align-items: center; 
+  margin-left: 20px;
+}
+
+.logo {
+  width: 75px;
+  height: 75px;
+}
+
+#searchInput {
+  width: 90%;
+  max-width: 400px;
+  padding: 10px;
+  border-radius: 50px;
+  border: 1px solid #aaa;
+  font-size: 16px;
+}
+
+.screen {
+  display: none;
+  margin-top: 20px;
+}
+.screen.active {
+  display: block;
+}
+
+.sub-screen {
+  display: flex;
+  flex-direction: column;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  padding: 0 10px;
+}
+.sub-screen.active {
+  max-height: 500px;
+}
+
+.navbarButton {
+  font-family: 'Inter-Regular';
+}
+
+.uploadButton {
+  color: white;
+  text-align: center;
+  background-color: #04AA6D;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.uploadButton:hover {
+  background-color: #058b5a;
+}
+
+.chooseButton {
+  background:#4a90e2;
+  color:#fff;
+  padding:8px 16px;
+  border-radius:6px;
+  cursor:pointer;
+  display:inline-block;
+}
+.chooseButton:hover { background:#357ab8; }
+
+.uploadBar {
+  display: flex;
+  align-self: flex-end; 
+  justify-content: space-evenly; 
+  align-items: center; 
+  width: 50%;
+}
+
+.uploadBox {
+  background-color: #eeeeee;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* ✅ makes inner content align left */
+  justify-content: flex-start;
+}
+
+.uploadBox ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  text-align: left; /* ✅ ensures items don’t center */
+}
+
+.container {
+  max-width: 80%;
+  margin: auto;
+}
+
+.navbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.navbar button {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.navbar button:hover {
+  background: #f0f0f0;
+}
+.navbar button.active {
+  background: #2ecc71;
+  color: #fff;
+  border: none;
+}
+
+.lesson-card {
+  background: #e8fcf3;
+  margin-bottom: 12px;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.lesson-card:hover {
+  background: #dff9ec;
+}
+
+.arrow {
+  font-size: 16px;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease;
+}
+
+.lesson-card.open.arrow {
+  transform: rotate(180deg);
+}
+
+.lesson-title span {
+  display: block;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.ai-helper {
+  background: #f3f7ff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin-top: 20px;
+}
+.ai-helper input {
+  font-family: 'Inter-Regular';
+  width: 70%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+.ai-helper button {
+  background: #2ecc71;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+#aiAnswer {
+  margin-top: 10px;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.file-card {
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: 8px 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  color: white;
+  width: 70%;
+}
+.file-card:hover { 
+  transform: scale(1.02); 
+}
+.file-title {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.file-name {
+  display: inline-block;
+  max-width: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle; 
+}
+.file-card.main-module {
+  width: 60%;
+  height: 10px;
+  font-size: 1.25rem;
+  padding: 20px 24px;
+  background: #d7f3ff;
+}
+.file-card.main-module .file-icon {
+  width: 48px;
+  height: 48px;
+}
+.file-card.uploaded {
+  width: 50%;
+  font-size: 0.9rem;
+  padding: 8px 12px;
+}
+.file-card.uploaded .file-icon {
+  width: 30px;
+  height: 30px;
+}
+.file-card.word {
+  background-color: #4a90e2;
+}
+.file-card.pdf {
+  background-color: #e74c3c;
+}
+.file-card.image {
+  background-color: #e7b101;
+}
+.file-card.youtube {
+  background-color: #be0202;
+}
+
+.quizButton {
+  background-color: #2713db;
+  color: white;
+  width: 90px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.08);
+  margin-left: 450%;
+}
+
+@media (max-width: 800px) {
+  h1 {
+    font-size: 28px;
+    margin: 10px 0 5px 10px;
+    line-height: 1.1;
+  }
+
+  .welcome {
+    font-size: 15px;
+  }
+
+  .heading {
+    margin-top: 5px;
+    margin-left: 10px;
+  }
+
+  .file-card {
+    align-self: auto;
+    margin: 8px;
+    width: 100%;
+  }
+  .file-card.uploaded {
+    width: 95%;
+    box-sizing: border-box;
+  }
+  .file-card.main-module {
+    width: 95%;
+    height: 50px;
+    font-size: 15px;
+    box-sizing: border-box;
+  }
+
+  .uploadBox {
+    align-items: stretch;
+  }
+
+  .uploadBar {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 8px;
+  }
+  .uploadBar p {
+    margin-bottom: 4px;
+    width: 100%;
+  }
+
+  .file-title {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    font-size: 15px;
+    word-break: break-word;
+  }
+
+  .container {
+    margin: 20px auto;
+    justify-content: center;
+    width: 100%;
+    max-width: 95%;
+    box-sizing: border-box;
+  }
+
+  .navbar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    padding-bottom: 8px;
+  }
+
+  .navbar button {
+    flex: 0 0 auto;
+    min-width: 120px;
+  }
+  
+  .lesson-card {
+    width: 90%;
+  }
+
+  .quizButton {
+    background-color: #2713db;
+    color: white;
+    width: 90px;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.08);
+    margin-left: 50%;
+  }
+}

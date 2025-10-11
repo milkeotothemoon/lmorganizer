@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sample Quiz</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    padding: 20px;
+  }
+  .quiz-container {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  h1 { text-align: center; }
+  .question {
+    font-weight: bold;
+    margin: 20px 0 10px;
+  }
+  .options label {
+    display: block;
+    margin: 6px 0;
+    padding: 8px;
+    border-radius: 6px;
+    background: #eef;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .options input[type="radio"] { margin-right: 8px; }
+  .options label:hover { background: #dde; }
+  button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #4a90e2;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  #result {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+  <h1>Physics Lesson 1 Quiz</h1>
+  <form id="quizForm">
+    <!-- Questions will be inserted here by JS -->
+  </form>
+  <button type="button" onclick="checkAnswers()">Submit</button>
+  <div id="result"></div>
+  <button class="quizButton" onclick="window.location.href='index.html'">Go Back</button>
+</div>
+
+<script>
+// Example question set; you can load this from a JSON file or database
+const questions = [
+  {
+    q: "1. What is the speed of light in vacuum?",
+    options: ["3 x 10^8 m/s", "3 x 10^6 m/s", "1.5 x 10^8 m/s", "1 x 10^7 m/s"],
+    answer: 0
+  },
+  {
+    q: "2. Which particle has a negative charge?",
+    options: ["Proton", "Electron", "Neutron", "Photon"],
+    answer: 1
+  },
+  {
+    q: "3. The unit of force is:",
+    options: ["Joule", "Pascal", "Newton", "Watt"],
+    answer: 2
+  }
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((item, index) => {
+  const questionDiv = document.createElement("div");
+  questionDiv.className = "question-block";
+  questionDiv.innerHTML = `
+    <div class="question">${item.q}</div>
+    <div class="options">
+      ${item.options.map((opt,i)=>`
+        <label>
+          <input type="radio" name="q${index}" value="${i}">
+          ${opt}
+        </label>`).join("")}
+    </div>
+  `;
+  form.appendChild(questionDiv);
+});
+
+function checkAnswers() {
+  let score = 0;
+  questions.forEach((item, idx) => {
+    const chosen = form[`q${idx}`].value;
+    if (parseInt(chosen) === item.answer) score++;
+  });
+  document.getElementById("result").textContent =
+    `You got ${score} out of ${questions.length} correct.`;
+}
+</script>
+
+</body>
+</html>

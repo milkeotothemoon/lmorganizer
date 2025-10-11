@@ -1,0 +1,20 @@
+{
+  "name": "learning-material-organizer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node api.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "mammoth": "^1.11.0",
+    "node-fetch": "^2.7.0",
+    "pdf-parse": "^2.2.2"
+  }
+}
