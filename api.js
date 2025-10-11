@@ -10,7 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY; // your key
+const OPENAI_API_KEY = "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"; // your key
 
 let allNotesText = "";
 

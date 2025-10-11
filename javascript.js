@@ -1,3 +1,6 @@
+const menuButton = document.getElementById('menuButton');
+const menuOptions = document.getElementById('menuOptions');
+
 function goTo(screenId) {
   const screens = document.querySelectorAll('.screen');
   screens.forEach(screen => screen.classList.remove('active'));
@@ -31,6 +34,95 @@ function toggleLesson(id, card) {
   }
   
 }
+
+window.onload = () => {
+  const menuButton = document.getElementById('menuButton');
+  const menuOptions = document.getElementById('menuOptions');
+
+  menuButton.addEventListener('click', (e) => {
+  e.stopPropagation();
+  menuOptions.classList.toggle('show');
+  menuOptions.style.display = menuOptions.classList.contains('show') ? 'block' : 'none';
+});
+
+  document.addEventListener('click', (e) => {
+    if (!menuButton.contains(e.target) && !menuOptions.contains(e.target)) {
+      menuOptions.style.display = 'none';
+    }
+  });
+};
+
+let timer;
+let isRunning = false;
+let timeLeft = 25 * 60;
+let isWorkTime = true;
+
+const pomodoro = document.getElementById('pomodoro');
+const timerDisplay = document.getElementById('timerDisplay');
+const sessionLabel = document.getElementById('sessionLabel');
+const startBtn = document.getElementById('startBtn');
+const resetBtn = document.getElementById('resetBtn');
+const closePomodoro = document.getElementById('closePomodoro');
+
+function openPomodoro() {
+  pomodoro.style.display = 'block';
+}
+
+closePomodoro.addEventListener('click', () => {
+  pomodoro.style.display = 'none';
+  clearInterval(timer);
+  isRunning = false;
+  startBtn.textContent = 'Start';
+});
+
+function updateDisplay() {
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+  timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+function toggleTimer() {
+  if (isRunning) {
+    clearInterval(timer);
+    startBtn.textContent = 'Start';
+  } else {
+    timer = setInterval(() => {
+      timeLeft--;
+      updateDisplay();
+
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        if (isWorkTime) {
+          timeLeft = 5 * 60;
+          sessionLabel.textContent = 'Break Time';
+          alert('Work session done! Time for a 5-min break.');
+        } else {
+          timeLeft = 25 * 60;
+          sessionLabel.textContent = 'Work Time';
+          alert('Break over! Back to work.');
+        }
+        isWorkTime = !isWorkTime;
+        updateDisplay();
+      }
+    }, 1000);
+    startBtn.textContent = 'Pause';
+  }
+  isRunning = !isRunning;
+}
+
+function resetTimer() {
+  clearInterval(timer);
+  isRunning = false;
+  isWorkTime = true;
+  timeLeft = 25 * 60;
+  sessionLabel.textContent = 'Work Time';
+  startBtn.textContent = 'Start';
+  updateDisplay();
+}
+
+startBtn.addEventListener('click', toggleTimer);
+resetBtn.addEventListener('click', resetTimer);
+updateDisplay();
 
 function filterLessons() {
   const query = document.getElementById('searchInput').value.toLowerCase();

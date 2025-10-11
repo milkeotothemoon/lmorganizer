@@ -6,7 +6,6 @@
   <link rel="shortcut icon" type="image/x-icon" href="icon.ico"/>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="javascript.js"></script>
   <script>
     async function askAI() {
       const userInput = document.getElementById("userInput").value;
@@ -32,6 +31,30 @@
   <div class="heading">
   <img src="logo.png" class="logo">
   <h1> G12 Learning Materials Organizer </h1>
+  </div>
+
+  <div class="menu-wrapper">
+    <button id="menuButton" class="menu-button">⋮</button>
+    <div id="menuOptions" class="menu-options">
+      <button onclick="openSettings()">Settings</button>
+      <button onclick="openOther()">About</button>
+      <button onclick="openPomodoro()">Pingoodoro</button>
+    </div>
+  </div>
+
+  <div id="pomodoro" class="pomodoro">
+    <div class="pomodoro-header">
+      <span>🐧 Pingoodoro 💢</span>
+      <button id="closePomodoro">✕</button>
+    </div>
+    <div class="pomodoro-body">
+      <h2 id="timerDisplay">25:00</h2>
+      <p id="sessionLabel">Work Time</p>
+      <div class="pomodoro-buttons">
+        <button id="startBtn">Start</button>
+        <button id="resetBtn">Reset</button>
+      </div>
+    </div>
   </div>
 
   <div class="container">
@@ -338,4 +361,5 @@
 
   </div>
 </body>
+<script src="javascript.js"></script>
 </html>
