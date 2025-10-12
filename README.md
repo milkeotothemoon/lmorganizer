@@ -4,9 +4,9 @@ Features:
 - Student Notes upload feature
 - AI tutor
 - Search bar
+- Pomodoro Timer (Pingoodoro)
 
 To be added:
-- Pomodoro Timer
 - Lesson Randomizer
 - Credits
 
