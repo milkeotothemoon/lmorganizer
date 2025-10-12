@@ -1,3 +1,4 @@
+
 const menuButton = document.getElementById('menuButton');
 const menuOptions = document.getElementById('menuOptions');
 
@@ -151,12 +152,20 @@ function filterLessons() {
   noResults.style.display = hasVisible ? 'none' : 'block';
 }
 
-// SUPABASE CODE
+// ✅ Import Supabase client FIRST
 
+// 🔑 Supabase credentials
 const supabaseUrl = "https://gshpbwgfehncdlcomqbl.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdzaHBid2dmZWhuY2RsY29tcWJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5MTA5NjgsImV4cCI6MjA3MjQ4Njk2OH0.hFF9rFyDtqBs-nxceNbu1sSUxSPgSlMdejkjszBK_jg";
-const client = supabase.createClient(supabaseUrl, supabaseKey);
 
+// ✅ Use one consistent Supabase client
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+
+
+// =====================================================
+// FILE UPLOAD SECTION
+// =====================================================
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('input[type="file"][id^="fileInput-"]').forEach(input => {
     const subject = input.id.replace('fileInput-', '');
@@ -174,11 +183,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function uploadFile(subject) {
   const input = document.getElementById(`fileInput-${subject}`);
-  const file  = input.files[0];
+  const file = input.files[0];
   if (!file) return;
 
-  const { error } = await client
-    .storage
+  const { error } = await supabase.storage
     .from("Storage")
     .upload(`${subject}/${file.name}`, file);
 
@@ -187,8 +195,7 @@ async function uploadFile(subject) {
 }
 
 async function loadFiles(subject) {
-  const { data, error } = await client
-    .storage
+  const { data, error } = await supabase.storage
     .from("Storage")
     .list(subject, { limit: 100 });
 
@@ -197,16 +204,12 @@ async function loadFiles(subject) {
     return;
   }
 
-  const files = data.filter(
-    item => item.id !== null && !item.name.endsWith("/")
-  );
-
+  const files = data.filter(item => item.id !== null && !item.name.endsWith("/"));
   const list = document.getElementById(`fileList-${subject}`);
   list.innerHTML = "";
 
   files.forEach(file => {
-    const { data: urlData } = client
-      .storage
+    const { data: urlData } = supabase.storage
       .from("Storage")
       .getPublicUrl(`${subject}/${file.name}`);
 
@@ -227,8 +230,8 @@ async function loadFiles(subject) {
     const card = document.createElement("div");
     card.className = `file-card uploaded ${typeClass}`;
     card.innerHTML = `
-        <span class="file-title">${file.name}</span>
-        <img src="${icon}" class="file-icon" alt="${ext} icon">
+      <span class="file-title">${file.name}</span>
+      <img src="${icon}" class="file-icon" alt="${ext} icon">
     `;
     card.addEventListener("click", () =>
       window.open(urlData.publicUrl, "_blank")
@@ -238,7 +241,44 @@ async function loadFiles(subject) {
   });
 }
 
+// Load your subjects
 loadFiles("Contemp");
 loadFiles("MIL");
 loadFiles("Philo");
 loadFiles("PE");
+
+// =====================================================
+// RESPONDENT TRACKER SECTION
+// =====================================================
+
+// Generate unique ID for this respondent
+const respondentId = crypto.randomUUID();
+const startTime = Date.now();
+
+console.log("🟢 Tracker started:", respondentId);
+
+function sendLog() {
+  const endTime = Date.now();
+  const durationSeconds = Math.floor((endTime - startTime) / 1000);
+  const device = /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : "desktop";
+  const page = window.location.pathname;
+
+  const data = {
+    timestamp: new Date().toISOString(),
+    duration_seconds: durationSeconds,
+    device,
+    page,
+    respondent_id: respondentId
+  };
+
+  console.log("📤 Sending respondent log:", data);
+
+  const url = `${supabaseUrl}/rest/v1/respondent_logs`;
+  navigator.sendBeacon(
+    url,
+    new Blob([JSON.stringify(data)], { type: "application/json" })
+  );
+}
+
+// ✅ Use `pagehide` instead of `unload`
+window.addEventListener("pagehide", sendLog);
