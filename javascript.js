@@ -159,9 +159,10 @@ const supabaseUrl = "https://gshpbwgfehncdlcomqbl.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdzaHBid2dmZWhuY2RsY29tcWJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5MTA5NjgsImV4cCI6MjA3MjQ4Njk2OH0.hFF9rFyDtqBs-nxceNbu1sSUxSPgSlMdejkjszBK_jg";
 
 // ✅ Use one consistent Supabase client
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-
-
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey, {
+  auth: { persistSession: false },
+  global: { fetch: (url, options) => fetch(url, { ...options, credentials: 'omit' }) }
+});
 
 // =====================================================
 // FILE UPLOAD SECTION
