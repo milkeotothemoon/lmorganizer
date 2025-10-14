@@ -106,6 +106,35 @@ h1 {
   display: block;
 }
 
+.toggle-switch {
+  width: 50px;
+  height: 26px;
+  background-color: #ccc;
+  border-radius: 30px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.toggle-switch.active {
+  background-color: #4caf50; /* green when active */
+}
+
+.toggle-circle {
+  width: 22px;
+  height: 22px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: left 0.3s;
+}
+
+.toggle-switch.active .toggle-circle {
+  left: 26px;
+}
+
 .sub-screen {
   display: flex;
   flex-direction: column;
@@ -394,6 +423,104 @@ h1 {
   background-color: #27ae60;
 }
 
+.settingsOption {
+  display: flex; 
+  align-items: center; 
+  width: 25%; 
+  justify-content: space-between;
+}
+
+.menu-button {
+  background-color: #007bff;
+  top: 20px;
+  right: 20px;
+  color: white;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  font-size: 26px;
+}
+
+
+
+/* --------------------------------------------------------------------------------------------------- */
+
+
+
+.dark-mode {
+  background-color: #111;
+  color: #eee;
+}
+
+.dark-mode button {
+  color: white;
+}
+
+.dark-mode button:hover{
+  color: black;
+}
+
+.dark-mode .navbar button {
+  background: #222;
+  color: #ddd;
+  border: 1px solid #444;
+}
+.dark-mode .navbar button.active {
+  background: #2ecc71;
+  color: #fff;
+}
+
+.dark-mode .lesson-card {
+  background: #1a1a1a;
+  color: #ddd;
+}
+.dark-mode .lesson-card:hover {
+  background: #222;
+}
+
+.dark-mode .uploadBox {
+  background-color: #1a1a1a;
+}
+
+.dark-mode .ai-helper {
+  background: #181818;
+  color: #eaeaea;
+}
+
+.dark-mode .pomodoro {
+  background: #222;
+  color: #fff;
+}
+
+.dark-mode .menu-options {
+  background: #222;
+  border: 1px solid #444;
+  color: white;
+}
+
+.dark-mode input, 
+.dark-mode textarea {
+  background: #2a2a2a;
+  color: #f0f0f0;
+  border: 1px solid #555;
+}
+
+.dark-mode .menu-button {
+  top: 20px;
+  right: 20px;
+  background: white;
+  border: none;
+  font-size: 26px;
+  cursor: pointer;
+  color: black;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
 
 
 /* --------------------------------------------------------------------------------------------------- */
@@ -527,5 +654,12 @@ h1 {
     bottom: 90px;
     right: 10px;
     width: 200px;
+  }
+
+  .settingsOption {
+    display: flex; 
+    align-items: center; 
+    width: 100%; 
+    justify-content: space-between;
   }
 }

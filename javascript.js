@@ -82,6 +82,32 @@ function updateDisplay() {
   timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
 
+const toggleSwitch = document.getElementById("themeToggle");
+
+toggleSwitch.addEventListener("click", () => {
+  toggleSwitch.classList.toggle("active");
+  toggleDarkMode(); // <-- this actually runs the function!
+});
+
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+
+  // Optional: save preference
+  if (document.body.classList.contains("dark-mode")) {
+    localStorage.setItem("theme", "dark");
+  } else {
+    localStorage.setItem("theme", "light");
+  }
+}
+
+// On load, apply saved theme + toggle position
+window.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+    toggleSwitch.classList.add("active"); // keeps toggle in correct position
+  }
+});
+
 function toggleTimer() {
   if (isRunning) {
     clearInterval(timer);
@@ -253,33 +279,26 @@ loadFiles("PE");
 // =====================================================
 
 // Generate unique ID for this respondent
+let startTime = Date.now();
+const page = window.location.pathname;
+const device = /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : "desktop";
 const respondentId = crypto.randomUUID();
-const startTime = Date.now();
 
-console.log("🟢 Tracker started:", respondentId);
+// Track when tab is hidden or closed
+document.addEventListener("visibilitychange", async () => {
+  if (document.visibilityState === "hidden") {
+    const duration = Math.round((Date.now() - startTime) / 1000);
 
-function sendLog() {
-  const endTime = Date.now();
-  const durationSeconds = Math.floor((endTime - startTime) / 1000);
-  const device = /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : "desktop";
-  const page = window.location.pathname;
+    const { data, error } = await supabase.from("respondent_logs").insert([
+      {
+        timestamp: new Date().toISOString(),
+        duration_seconds: duration,
+        device,
+        page,
+        respondent_id: respondentId,
+      },
+    ]);
 
-  const data = {
-    timestamp: new Date().toISOString(),
-    duration_seconds: durationSeconds,
-    device,
-    page,
-    respondent_id: respondentId
-  };
-
-  console.log("📤 Sending respondent log:", data);
-
-  const url = `${supabaseUrl}/rest/v1/respondent_logs`;
-  navigator.sendBeacon(
-    url,
-    new Blob([JSON.stringify(data)], { type: "application/json" })
-  );
-}
-
-// ✅ Use `pagehide` instead of `unload`
-window.addEventListener("pagehide", sendLog);
+    console.log("📊 Log inserted:", data, error);
+  }
+});

@@ -36,7 +36,7 @@
   <div class="menu-wrapper">
     <button id="menuButton" class="menu-button">⋮</button>
     <div id="menuOptions" class="menu-options">
-      <button onclick="openSettings()">Settings</button>
+      <button onclick="goTo('Settings')">Settings</button>
       <button onclick="openOther()">About</button>
       <button onclick="openPomodoro()">Pingoodoro</button>
     </div>
@@ -349,6 +349,20 @@
       </div>
     </div>
     
+<!--  ----------------------------------------------------------------------------------------------  -->
+
+    <div id="Settings" class="screen">
+      <h2> Settings </h2>
+      <div class="settingsOption">
+      <p> Dark Mode </p>
+      <div class="toggle-switch" id="themeToggle">
+        <div class="toggle-circle"></div>
+      </div>
+      </div>
+    </div>
+
+<!--  ----------------------------------------------------------------------------------------------  -->
+
     <hr>
 
     <div class="ai-helper">
@@ -360,6 +374,7 @@
     </div>
 
   </div>
+
 </body>
 <script src="javascript.js"></script>
 </html>
