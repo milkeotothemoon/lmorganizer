@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Test</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    padding: 20px;
+  }
+  .quiz-container {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  h1 { text-align: center; }
+  .question {
+    font-weight: bold;
+    margin: 20px 0 10px;
+  }
+  .options label {
+    display: block;
+    margin: 6px 0;
+    padding: 8px;
+    border-radius: 6px;
+    background: #eef;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .options input[type="radio"] { margin-right: 8px; }
+  .options label:hover { background: #dde; }
+  button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #4a90e2;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  #result {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+  <h1>Contemporary Arts Lesson 3-4 Test</h1>
+  <form id="quizForm">
+    <!-- Questions will be inserted here by JS -->
+  </form>
+  <button type="button" onclick="checkAnswers()">Submit</button>
+  <div id="result"></div>
+  <button class="quizButton" onclick="location.href='../index.html'">Go Back</button>
+</div>
+
+<script>
+// Example question set; you can load this from a JSON file or database
+const questions = [
+  {
+    q: "1. What do we call the materials used to create an artwork?",
+    options: ["Tools", "Medium", "Canvas", "Elements"],
+    answer: 1
+  },
+  {
+    q: "2. Which is the primary use of abaca before being transformed into various products?",
+    options: ["Rope making", "Furniture", "Decoration", "Wall covering"],
+    answer: 0
+  },
+  {
+    q: "3. Coconut shells can be used to make ____.",
+    options: ["Lamps and bags", "Musical instruments only", "Purely jewelry", "Canvases"],
+    answer: 0
+  },
+  {
+    q: "4. Which versatile material is used in furniture, instruments, and house construction?",
+    options: ["Bamboo", "Rattan", "Coir", "Buri"],
+    answer: 0
+  },
+  {
+    q: "5. Beads are usually used to create ____.",
+    options: ["Food products", "Body ornaments", "Canvases", "Wall paint"],
+    answer: 1
+  },
+  {
+    q: "6. Which fiber is called “Manila hemp”?",
+    options: ["Buri", "Coir", "Abaca", "Nito"],
+    answer: 2
+  },
+  {
+    q: "7. Which waste product can be converted into decorative blocks?",
+    options: ["Rice hull and sawdust", "Metal wires", "Plastic bottles", "Coir"],
+    answer: 0
+  },
+  {
+    q: "8. Which of the following is an example of scrap material for furniture design?",
+    options: ["Old strainer", "Fresh bamboo", "Coconut meat", "Clay"],
+    answer: 0
+  },
+  {
+    q: "9. Which plant material comes from coconut husks?",
+    options: ["Abaca", "Coir", "Buri", "Nito"],
+    answer: 1
+  },
+  {
+    q: "10. Tikog grass is commonly used for ____.",
+    options: ["Hats", "Bags", "Mats", "Sculptures"],
+    answer: 2
+  },
+  {
+    q: "11. Which metal byproduct can be turned into artwork?",
+    options: ["Iron bars", "Scrap tin cans", "Gold coins", "Glass bottles"],
+    answer: 1
+  },
+  {
+    q: "12. Which resource is often used in wall decors?",
+    options: ["Scrap wood", "Buri", "Clay", "Rattan"],
+    answer: 0
+  },
+  {
+    q: "13. Cement and plaster of Paris are examples of ____.",
+    options: ["Organic materials", "Synthetic materials", "Earth-based materials", "Waste materials"],
+    answer: 2
+  },
+  {
+    q: "14. Which is a good reason to use local materials in art?",
+    options: ["They are more expensive", "They support local identity", "They limit creativity", "They are scarce"],
+    answer: 1
+  },
+  {
+    q: "15. Which unusual waste item has been used as creative art medium?",
+    options: ["Plastic bottles and cups", "Cotton threads only", "Marble tiles", "Pure gold"],
+    answer: 0
+  },
+  {
+    q: "16. Which technique uses cut-out pictures glued together to form new artwork?",
+    options: ["Decoupage", "Collage", "Assemblage", "Decalcomania"],
+    answer: 1
+  },
+  {
+    q: "17. The process of layering cut-outs sealed with varnish is called ____.",
+    options: ["Decalcomania", "Decoupage", "Assemblage", "Found objects"],
+    answer: 1
+  },
+  {
+    q: "18. Which technique is done by sticking different objects to create a 3D artwork?",
+    options: ["Assemblage", "Collage", "Decalcomania", "Minimalism"],
+    answer: 0
+  },
+  {
+    q: "19. Which technique involves pressing gouache between paper or glass to create prints?",
+    options: ["Decoupage", "Decalcomania", "Collage", "Found objects"],
+    answer: 1
+  },
+  {
+    q: "20. Which movement was pioneered by Pablo Picasso and Georges Braque?",
+    options: ["Minimalism", "Cubism", "Social Realism", "Surrealism"],
+    answer: 1
+  },
+  {
+    q: "21. Which art form uses simple shapes and elimination of details?",
+    options: ["Minimalism", "Cubism", "Assemblage", "Social Realism"],
+    answer: 0
+  },
+  {
+    q: "22. Which art style depicts the struggles of ordinary people?",
+    options: ["Minimalism", "Cubism", "Social Realism", "Assemblage"],
+    answer: 2
+  },
+  {
+    q: "23. Which term refers to ordinary objects reused as artworks?",
+    options: ["Minimalism", "Assemblage", "Found objects", "Collage"],
+    answer: 2
+  },
+  {
+    q: "24. Which art form emphasizes size and space?",
+    options: ["Minimalism", "Large-scale art", "Cubism", "Assemblage"],
+    answer: 1
+  },
+  {
+    q: "25. Which is a characteristic of collage?",
+    options: ["Use of cut paper, cloth, or pictures", "Relief carving", "Use of clay only", "Sculpting from marble"],
+    answer: 0
+  },
+  {
+    q: "26. Which technique shows resourcefulness in using discarded items?",
+    options: ["Collage", "Found objects", "Decalcomania", "Large-scale art"],
+    answer: 1
+  },
+  {
+    q: "27. Which artistic style shows objects from multiple angles at the same time?",
+    options: ["Cubism", "Minimalism", "Assemblage", "Social Realism"],
+    answer: 0
+  },
+  {
+    q: "28. Which is an example of assemblage?",
+    options: ["A canvas painting of a landscape", "A chair made from scrap wood and metal", "A woven abaca mat", "A poster printed on paper"],
+    answer: 1
+  },
+  {
+    q: "29. Which art form uses wide public spaces like plazas for installations?",
+    options: ["Collage", "Large-scale art", "Found objects", "Minimalism"],
+    answer: 1
+  },
+  {
+    q: "30. Which describes decoupage best?",
+    options: ["Attaching cloth and paper cut-outs sealed with lacquer", "Painting a picture on a canvas", "Carving designs on wood", "Shaping clay into pots"],
+    answer: 0
+  }
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((item, index) => {
+  const questionDiv = document.createElement("div");
+  questionDiv.className = "question-block";
+  questionDiv.innerHTML = `
+    <div class="question">${item.q}</div>
+    <div class="options">
+      ${item.options.map((opt,i)=>`
+        <label>
+          <input type="radio" name="q${index}" value="${i}">
+          ${opt}
+        </label>`).join("")}
+    </div>
+  `;
+  form.appendChild(questionDiv);
+});
+
+function checkAnswers() {
+  let score = 0;
+  questions.forEach((item, idx) => {
+    const chosen = form[`q${idx}`].value;
+    if (parseInt(chosen) === item.answer) score++;
+  });
+  document.getElementById("result").textContent =
+    `You got ${score} out of ${questions.length} correct.`;
+}
+</script>
+
+</body>
+</html>

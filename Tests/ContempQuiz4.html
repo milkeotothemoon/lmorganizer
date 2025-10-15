@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Test</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    padding: 20px;
+  }
+  .quiz-container {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  h1 { text-align: center; }
+  .question {
+    font-weight: bold;
+    margin: 20px 0 10px;
+  }
+  .options label {
+    display: block;
+    margin: 6px 0;
+    padding: 8px;
+    border-radius: 6px;
+    background: #eef;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .options input[type="radio"] { margin-right: 8px; }
+  .options label:hover { background: #dde; }
+  button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #4a90e2;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  #result {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+  <h1>Contemporary Arts Lesson 7-8 Test</h1>
+  <form id="quizForm">
+    <!-- Questions will be inserted here by JS -->
+  </form>
+  <button type="button" onclick="checkAnswers()">Submit</button>
+  <div id="result"></div>
+  <button class="quizButton" onclick="location.href='../index.html'">Go Back</button>
+</div>
+
+<script>
+// Example question set; you can load this from a JSON file or database
+const questions = [
+  {
+    q: "1. Contemporary art refers to art that is created in ____.",
+    options: ["Past times", "Present times", "Future times", "Imaginary times"],
+    answer: 1
+  },
+  {
+    q: "2. Which movement uses straight lines and primary colors?",
+    options: ["Fauvism", "Neoplasticism", "Cubism", "Surrealism"],
+    answer: 1
+  },
+  {
+    q: "3. Surrealism emphasizes ____.",
+    options: ["Emotions and expressions", "Geometrical cubes", "Tapping the unconscious mind", "Use of primary colors"],
+    answer: 2
+  },
+  {
+    q: "4. Which art style emphasizes emotions and self-expression?",
+    options: ["Cubism", "Abstract expressionism", "Fauvism", "Neoplasticism"],
+    answer: 1
+  },
+  {
+    q: "5. Which is often considered the most exciting component of a painting?",
+    options: ["Technique", "Design", "Color", "Medium"],
+    answer: 2
+  },
+  {
+    q: "6. Sculptors who use junk materials create ____.",
+    options: ["Novel", "Junk art", "Collage", "Assemblage"],
+    answer: 1
+  },
+  {
+    q: "7. Which is NOT a warm color?",
+    options: ["Blue", "Yellow", "Orange", "Red"],
+    answer: 0
+  },
+  {
+    q: "8. Cubism shows ____.",
+    options: ["Dream-like images", "Multiple viewpoints in geometric forms", "Use of natural textures", "Aggressive color strokes"],
+    answer: 1
+  },
+  {
+    q: "9. Colors based on blue undertones that calm the mind are ____.",
+    options: ["Warm colors", "Cool colors", "Bright colors", "Dark colors"],
+    answer: 1
+  },
+  {
+    q: "10. Warm colors can convey ____.",
+    options: ["Happiness", "Excitement", "Violence", "All of the above"],
+    answer: 3
+  },
+  {
+    q: "11. Fauvism is known for ____.",
+    options: ["Aggressive use of primary and complementary colors", "Subtle tones of gray", "Strict realism", "Geometrical abstraction"],
+    answer: 0
+  },
+  {
+    q: "12. Which movement is associated with dream-like visuals and symbolism?",
+    options: ["Surrealism", "Cubism", "Fauvism", "Neoplasticism"],
+    answer: 0
+  },
+  {
+    q: "13. Chromolithography is a printing technique that uses ____.",
+    options: ["Single color", "Multiple stones for multiple colors", "Digital software", "Wood and ink"],
+    answer: 1
+  },
+  {
+    q: "14. Emmanuel Garibay’s *Pagpasok ni Kristo sa Maynila* is an example of ____.",
+    options: ["Abstract art", "Contemporary painting addressing faith and society", "Fauvist color art", "Minimalist installation"],
+    answer: 1
+  },
+  {
+    q: "15. Which characteristic of contemporary art involves breaking traditional rules to innovate?",
+    options: ["Change and innovation", "Neoplasticism", "Fauvism", "Symmetry"],
+    answer: 0
+  },
+  {
+    q: "16. Which is the final step in the creative process?",
+    options: ["Brainstorming", "Planning", "Creation of product", "Research"],
+    answer: 2
+  },
+  {
+    q: "17. An artwork that involves arranging objects in a space for public interaction is called ____.",
+    options: ["Graffiti", "Installation art", "Printmaking", "Fresco"],
+    answer: 1
+  },
+  {
+    q: "18. Which refers to art using waste or discarded materials?",
+    options: ["Eco-art", "Junk art", "Digital art", "Collage"],
+    answer: 1
+  },
+  {
+    q: "19. Which is an example of performance art?",
+    options: ["Dance and live body painting", "Sculpture and pottery", "Collage and mosaic", "Printmaking and engraving"],
+    answer: 0
+  },
+  {
+    q: "20. What is the main purpose of eco-art?",
+    options: ["To protect the environment and promote awareness", "To replace traditional painting", "To promote industrialization", "To discard natural materials"],
+    answer: 0
+  },
+  {
+    q: "21. Which element of art is MOST useful in installation art?",
+    options: ["Space", "Texture", "Color", "Value"],
+    answer: 0
+  },
+  {
+    q: "22. Which describes recycling in art?",
+    options: ["Transforming waste into creative artworks", "Painting realistic portraits", "Drawing cartoons", "Carving stone"],
+    answer: 0
+  },
+  {
+    q: "23. Which of the following is an example of sustainable art practice?",
+    options: ["Using recycled bottles for lamps", "Buying imported canvases", "Using pure gold paint", "Importing marble"],
+    answer: 0
+  },
+  {
+    q: "24. Which characteristic of contemporary art is applied when new methods and materials are used?",
+    options: ["Innovation", "Tradition", "Symmetry", "Realism"],
+    answer: 0
+  },
+  {
+    q: "25. The use of stage and audience in an artwork shows ____.",
+    options: ["Performance practice", "Medium", "Junk art", "Sketching"],
+    answer: 0
+  },
+  {
+    q: "26. Which local material is often recycled into artworks like bags and mats?",
+    options: ["Plastic", "Marble", "Clay", "Gold"],
+    answer: 0
+  },
+  {
+    q: "27. What do you call art made for a limited time in an environment or public space?",
+    options: ["Installation art", "Temporary art", "Performance art", "Eco-art"],
+    answer: 1
+  },
+  {
+    q: "28. Which is the first step in conceptualizing a final product?",
+    options: ["Idea or theme", "Marketing", "Installation", "Recycling"],
+    answer: 0
+  },
+  {
+    q: "29. Which shows creativity in art-making?",
+    options: ["Combining old and new methods in unique ways", "Copying exactly from books", "Using only imported materials", "Avoiding experimentation"],
+    answer: 0
+  },
+  {
+    q: "30. Which is an example of installation art in the Philippines?",
+    options: ["Artworks at CCP using recycled tires", "Graffiti along urban walls", "Woodcarving in Paete", "Sandugo Festival"],
+    answer: 0
+  }
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((item, index) => {
+  const questionDiv = document.createElement("div");
+  questionDiv.className = "question-block";
+  questionDiv.innerHTML = `
+    <div class="question">${item.q}</div>
+    <div class="options">
+      ${item.options.map((opt,i)=>`
+        <label>
+          <input type="radio" name="q${index}" value="${i}">
+          ${opt}
+        </label>`).join("")}
+    </div>
+  `;
+  form.appendChild(questionDiv);
+});
+
+function checkAnswers() {
+  let score = 0;
+  questions.forEach((item, idx) => {
+    const chosen = form[`q${idx}`].value;
+    if (parseInt(chosen) === item.answer) score++;
+  });
+  document.getElementById("result").textContent =
+    `You got ${score} out of ${questions.length} correct.`;
+}
+</script>
+
+</body>
+</html>

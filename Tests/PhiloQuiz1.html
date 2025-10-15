@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Test</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    padding: 20px;
+  }
+  .quiz-container {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  h1 { text-align: center; }
+  .question {
+    font-weight: bold;
+    margin: 20px 0 10px;
+  }
+  .options label {
+    display: block;
+    margin: 6px 0;
+    padding: 8px;
+    border-radius: 6px;
+    background: #eef;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .options input[type="radio"] { margin-right: 8px; }
+  .options label:hover { background: #dde; }
+  button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #4a90e2;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  #result {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+  <h1>Philosophy Final Test</h1>
+  <form id="quizForm">
+    <!-- Questions will be inserted here by JS -->
+  </form>
+  <button type="button" onclick="checkAnswers()">Submit</button>
+  <div id="result"></div>
+  <button class="quizButton" onclick="location.href='../index.html'">Go Back</button>
+</div>
+
+<script>
+// Example question set; you can load this from a JSON file or database
+const questions = [
+  {
+    q: "1. What does it mean to say the human person is an embodied spirit?",
+    options: [
+      "The body is all that matters",
+      "The spirit is independent of the body",
+      "The body and spirit are deeply united yet distinct",
+      "Spirit eventually replaces the body"
+    ],
+    answer: 2
+  },
+  {
+    q: "2. What does intersubjectivity imply in human life?",
+    options: [
+      "Respecting only one’s opinion",
+      "Treating others as persons with dignity",
+      "Ignoring differences among people",
+      "Living completely alone"
+    ],
+    answer: 1
+  },
+  {
+    q: "3. Why do institutions such as family, school, and government exist?",
+    options: [
+      "To replace personal freedom",
+      "To promote order, values, and development",
+      "To limit individual choices",
+      "To control people’s happiness"
+    ],
+    answer: 1
+  },
+  {
+    q: "4. What does it mean to say that the human person is a social being?",
+    options: [
+      "Humans can live without others",
+      "Humans are self-sufficient",
+      "Humans naturally seek relationships and community",
+      "Humans are isolated individuals"
+    ],
+    answer: 2
+  },
+  {
+    q: "5. Which of the following best expresses intersubjective relationships?",
+    options: [
+      "Using others for personal gain",
+      "Building mutual understanding and empathy",
+      "Avoiding communication with others",
+      "Controlling people’s actions"
+    ],
+    answer: 1
+  },
+  {
+    q: "6. What is the main limitation of the human person in relation to others?",
+    options: [
+      "Omniscience",
+      "Temporality (living in time)",
+      "Absolute freedom",
+      "Immortality"
+    ],
+    answer: 1
+  },
+  {
+    q: "7. How can intersubjectivity be shown in everyday life?",
+    options: [
+      "By isolating oneself from others",
+      "By treating others as equals with respect and openness",
+      "By dominating or manipulating others",
+      "By ignoring differences in opinion"
+    ],
+    answer: 1
+  },
+  {
+    q: "8. How does the idea of community reflect human nature?",
+    options: [
+      "It limits individual growth",
+      "It fulfills the need for relationships and shared meaning",
+      "It destroys independence",
+      "It removes responsibility"
+    ],
+    answer: 1
+  },
+  {
+    q: "9. Which philosophical view believes that humans are the most important species on the planet and may use nature for their benefit?",
+    options: [
+      "Ecocentrism",
+      "Anthropocentrism",
+      "Biocentrism",
+      "Deep Ecology"
+    ],
+    answer: 1
+  },
+  {
+    q: "10. What does biocentrism emphasize?",
+    options: [
+      "Only human life has value",
+      "All living things have intrinsic worth",
+      "The environment exists to serve humans",
+      "Nature is meaningless without people"
+    ],
+    answer: 1
+  },
+  {
+    q: "11. Which view highlights that humans are part of a greater biological system and must act as stewards of nature?",
+    options: [
+      "Anthropocentrism",
+      "Biocentrism",
+      "Ecocentrism",
+      "Social Ecology"
+    ],
+    answer: 2
+  },
+  {
+    q: "12. What does Environmental Philosophy study?",
+    options: [
+      "Human behavior in urban settings",
+      "The moral relationship between humans and nature",
+      "Scientific causes of pollution",
+      "The structure of political systems"
+    ],
+    answer: 1
+  },
+  {
+    q: "13. What is Environmental Aesthetics concerned with?",
+    options: [
+      "Finding beauty and order in nature",
+      "Designing artificial environments",
+      "Destroying natural landscapes",
+      "Viewing nature as useless"
+    ],
+    answer: 0
+  },
+  {
+    q: "14. Which principle of sustainability ensures resources for future generations?",
+    options: ["Prudence", "Integrity", "Equity", "Efficiency"],
+    answer: 2
+  },
+  {
+    q: "15. Which principle aims to reduce waste and use resources wisely?",
+    options: [
+      "Economic Efficiency",
+      "Equity",
+      "Environmental Integrity",
+      "Social Ecology"
+    ],
+    answer: 0
+  },
+  {
+    q: "16. What theory explains that social hierarchies and economic systems cause ecological problems?",
+    options: [
+      "Deep Ecology",
+      "Ecofeminism",
+      "Social Ecology",
+      "Anthropocentrism"
+    ],
+    answer: 2
+  },
+  {
+    q: "17. Which theory links the oppression of women to the exploitation of nature?",
+    options: ["Ecofeminism", "Deep Ecology", "Social Ecology", "Biocentrism"],
+    answer: 0
+  },
+  {
+    q: "18. What does Deep Ecology advocate?",
+    options: [
+      "Human superiority over nature",
+      "Equal value and intrinsic worth of all living beings",
+      "Profit-driven use of natural resources",
+      "Technology as the only solution"
+    ],
+    answer: 1
+  },
+  {
+    q: "19. What does prudence teach regarding the environment?",
+    options: [
+      "To act with reason and caution toward nature",
+      "To prioritize wealth over ecology",
+      "To consume resources freely",
+      "To disregard long-term effects"
+    ],
+    answer: 0
+  },
+  {
+    q: "20. What does frugality promote?",
+    options: [
+      "Wasting less and using resources wisely",
+      "Buying more to stimulate the economy",
+      "Spending without limits",
+      "Avoiding recycling and reusing"
+    ],
+    answer: 0
+  },
+  {
+    q: "21. What is the goal of sustainable development?",
+    options: [
+      "Economic progress at all costs",
+      "Meeting present needs without harming future generations",
+      "Preserving nature by stopping development",
+      "Focusing only on industrial growth"
+    ],
+    answer: 1
+  },
+  {
+    q: "22. Which principle of sustainability is violated when companies dump toxic waste into rivers?",
+    options: [
+      "Environmental Integrity",
+      "Equity",
+      "Prudence",
+      "Frugality"
+    ],
+    answer: 0
+  },
+  {
+    q: "23. How can individuals practice environmental responsibility daily?",
+    options: [
+      "By wasting energy and water",
+      "By recycling, conserving, and avoiding excess",
+      "By relying only on the government",
+      "By ignoring ecological problems"
+    ],
+    answer: 1
+  },
+  {
+    q: "24. Why is the human person considered a steward of the environment?",
+    options: [
+      "Because humans dominate nature",
+      "Because humans are entrusted to care for and protect creation",
+      "Because humans are superior to other species",
+      "Because humans are not part of nature"
+    ],
+    answer: 1
+  }
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((item, index) => {
+  const questionDiv = document.createElement("div");
+  questionDiv.className = "question-block";
+  questionDiv.innerHTML = `
+    <div class="question">${item.q}</div>
+    <div class="options">
+      ${item.options.map((opt,i)=>`
+        <label>
+          <input type="radio" name="q${index}" value="${i}">
+          ${opt}
+        </label>`).join("")}
+    </div>
+  `;
+  form.appendChild(questionDiv);
+});
+
+function checkAnswers() {
+  let score = 0;
+  questions.forEach((item, idx) => {
+    const chosen = form[`q${idx}`].value;
+    if (parseInt(chosen) === item.answer) score++;
+  });
+  document.getElementById("result").textContent =
+    `You got ${score} out of ${questions.length} correct.`;
+}
+</script>
+
+</body>
+</html>

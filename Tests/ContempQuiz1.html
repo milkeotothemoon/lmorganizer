@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Test</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    padding: 20px;
+  }
+  .quiz-container {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  h1 { text-align: center; }
+  .question {
+    font-weight: bold;
+    margin: 20px 0 10px;
+  }
+  .options label {
+    display: block;
+    margin: 6px 0;
+    padding: 8px;
+    border-radius: 6px;
+    background: #eef;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .options input[type="radio"] { margin-right: 8px; }
+  .options label:hover { background: #dde; }
+  button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #4a90e2;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  #result {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+  <h1>Contemporary Arts Lesson 1-2 Test</h1>
+  <form id="quizForm">
+    <!-- Questions will be inserted here by JS -->
+  </form>
+  <button type="button" onclick="checkAnswers()">Submit</button>
+  <div id="result"></div>
+  <button class="quizButton" onclick="location.href='../index.html'">Go Back</button>
+</div>
+
+<script>
+// Example question set; you can load this from a JSON file or database
+const questions = [
+  {
+    q: "1. Which art style is characterized by simple geometric shapes and lack of decorative elements?",
+    options: ["Cubism", "Minimalism", "Social Realism", "Large-Scale Art"],
+    answer: 1
+  },
+  {
+    q: "2. Which style of art was pioneered by Pablo Picasso and Georges Braque?",
+    options: ["Minimalism", "Social Realism", "Cubism", "Found Objects"],
+    answer: 2
+  },
+  {
+    q: "3. Which depicts contemporary life as social or political comment?",
+    options: ["Cubism", "Minimalism", "Social Realism", "Large-Scale Art"],
+    answer: 2
+  },
+  {
+    q: "4. Which is the process of adhering cut-outs of paper then coating with varnish?",
+    options: ["Collage", "Decoupage", "Decalcomania", "Assemblage"],
+    answer: 1
+  },
+  {
+    q: "5. Which technique is made by sticking flat elements such as newspapers or cloth?",
+    options: ["Decoupage", "Collage", "Assemblage", "Digital art"],
+    answer: 1
+  },
+  {
+    q: "6. The process of applying gouache to paper or glass and transferring to canvas is ____.",
+    options: ["Collage", "Assemblage", "Decalcomania", "Decoupage"],
+    answer: 2
+  },
+  {
+    q: "7. The term “found object” in art refers to ____.",
+    options: ["Recycled waste only", "Natural or man-made items used as art", "Mass-produced materials", "Abstract digital prints"],
+    answer: 1
+  },
+  {
+    q: "8. Large-scale art plays with ____.",
+    options: ["Shapes", "Colors", "Scale", "Texture"],
+    answer: 2
+  },
+  {
+    q: "9. Which technology makes Filipino digital artworks immersive?",
+    options: ["Large-scale art", "Digital application", "Minimalism", "Collage"],
+    answer: 1
+  },
+  {
+    q: "10. Abaca belongs to what plant family?",
+    options: ["Palm", "Banana", "Grass", "Bamboo"],
+    answer: 1
+  },
+  {
+    q: "11. Eastern Visayas is known as the widest supplier of ____.",
+    options: ["Rattan", "Abaca", "Buri", "Coir"],
+    answer: 1
+  },
+  {
+    q: "12. Coir comes from what plant material?",
+    options: ["Abaca stalk", "Coconut husk", "Rattan stem", "Pandan leaves"],
+    answer: 1
+  },
+  {
+    q: "13. Tikog belongs to ____.",
+    options: ["Banana family", "Palm family", "Sea grasses", "Bamboo family"],
+    answer: 2
+  },
+  {
+    q: "14. Which local material belongs to the palm family?",
+    options: ["Rattan", "Buri", "Bamboo", "Nito"],
+    answer: 0
+  },
+  {
+    q: "15. Which is an example of a technique using flat elements to create relief-like layers?",
+    options: ["Collage", "Assemblage", "Cubism", "Decoupage"],
+    answer: 0
+  },
+  {
+    q: "16. Which of the following is NOT a major art form in the Philippines?",
+    options: ["Music", "Dance", "Literature", "Mathematics"],
+    answer: 3
+  },
+  {
+    q: "17. The painting Spoliarium was created by ______.",
+    options: ["Guillermo Tolentino", "Juan Luna", "Carlos “Botong” Francisco", "Vicente Manansala"],
+    answer: 1
+  },
+  {
+    q: "18. The national dance of the Philippines that uses bamboo poles is ____.",
+    options: ["Tinikling", "Cariñosa", "Singkil", "Pandanggo sa Ilaw"],
+    answer: 0
+  },
+  {
+    q: "19. Which traditional Muslim dance tells the story of Princess Gandingan?",
+    options: ["Tinikling", "Singkil", "Kuradang", "Kadal Tahaw"],
+    answer: 1
+  },
+  {
+    q: "20. Pottery is the art of making objects out of ____.",
+    options: ["Cloth", "Bamboo", "Clay", "Metal"],
+    answer: 2
+  },
+  {
+    q: "21. Which Filipino artist painted Planting Rice?",
+    options: ["Juan Luna", "Napoleon Abueva", "Fernando Amorsolo", "Jose Rizal"],
+    answer: 2
+  },
+  {
+    q: "22. Which is considered the 'Father of Modern Philippine Sculpture'?",
+    options: ["Guillermo Tolentino", "Napoleon Abueva", "Isabelo Tampinco", "Arturo Luz"],
+    answer: 1
+  },
+  {
+    q: "23. The flat gong played in the Cordillera region is called ____.",
+    options: ["Kulintang", "Gangsa", "Solibao", "Tongatong"],
+    answer: 1
+  },
+  {
+    q: "24. Which bamboo nose flute is from the Cordillera?",
+    options: ["Tongali (Kalaleng)", "Kullitong", "Solibao", "Diwdiw-as"],
+    answer: 0
+  },
+  {
+    q: "25. The Cariñosa is a dance that portrays ____.",
+    options: ["Affection and courtship", "A harvest ritual", "A battle scene", "A creation story"],
+    answer: 0
+  },
+  {
+    q: "26. Which fabric is traditionally woven from pineapple fibers?",
+    options: ["Cotton", "Piña cloth", "Abaca", "Bark cloth"],
+    answer: 1
+  },
+  {
+    q: "27. Which art form is performed on stage with actors, props, lights, and sound?",
+    options: ["Film", "Dance", "Theater", "Architecture"],
+    answer: 2
+  },
+  {
+    q: "28. Which Filipino is a famous spoken word poet?",
+    options: ["Napoleon Abueva", "Juan Miguel Severo", "Jose Garcia Villa", "Francisco Balagtas"],
+    answer: 1
+  },
+  {
+    q: "29. Which is the correct group of the Seven Major Art Forms?",
+    options: [
+      "Visual Arts, Literature, Music, Theater, Film, Dance, Architecture",
+      "Painting, Music, Sports, Architecture, Dance, Sculpture, Theater",
+      "Literature, Sculpture, Sports, Dance, Theater, Painting, Music",
+      "Theater, Dance, Film, Sports, Architecture, Literature, Music"
+    ],
+    answer: 0
+  },
+  {
+    q: "30. Which dance illustrates the grace of women balancing pots on their heads?",
+    options: ["Pandanggo sa Ilaw", "Salisid", "Banga", "Dugso"],
+    answer: 2
+  }
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((item, index) => {
+  const questionDiv = document.createElement("div");
+  questionDiv.className = "question-block";
+  questionDiv.innerHTML = `
+    <div class="question">${item.q}</div>
+    <div class="options">
+      ${item.options.map((opt,i)=>`
+        <label>
+          <input type="radio" name="q${index}" value="${i}">
+          ${opt}
+        </label>`).join("")}
+    </div>
+  `;
+  form.appendChild(questionDiv);
+});
+
+function checkAnswers() {
+  let score = 0;
+  questions.forEach((item, idx) => {
+    const chosen = form[`q${idx}`].value;
+    if (parseInt(chosen) === item.answer) score++;
+  });
+  document.getElementById("result").textContent =
+    `You got ${score} out of ${questions.length} correct.`;
+}
+</script>
+
+</body>
+</html>

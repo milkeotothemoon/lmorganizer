@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Test</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    padding: 20px;
+  }
+  .quiz-container {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  h1 { text-align: center; }
+  .question {
+    font-weight: bold;
+    margin: 20px 0 10px;
+  }
+  .options label {
+    display: block;
+    margin: 6px 0;
+    padding: 8px;
+    border-radius: 6px;
+    background: #eef;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .options input[type="radio"] { margin-right: 8px; }
+  .options label:hover { background: #dde; }
+  button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #4a90e2;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  #result {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+  <h1>Contemporary Arts Lesson 5-6 Test</h1>
+  <form id="quizForm">
+    <!-- Questions will be inserted here by JS -->
+  </form>
+  <button type="button" onclick="checkAnswers()">Submit</button>
+  <div id="result"></div>
+  <button class="quizButton" onclick="location.href='../index.html'">Go Back</button>
+</div>
+
+<script>
+// Example question set; you can load this from a JSON file or database
+const questions = [
+  {
+    q: "1. The material or substance out of which an artwork is made is called ____.",
+    options: ["Artistic skill", "Medium", "Technique", "Element"],
+    answer: 1
+  },
+  {
+    q: "2. Which is an example of a 2-dimensional art?",
+    options: ["Sculpture", "Installation", "Painting", "Pottery"],
+    answer: 2
+  },
+  {
+    q: "3. Which is an example of a 3-dimensional art?",
+    options: ["Painting", "Pottery", "Drawing", "Photography"],
+    answer: 1
+  },
+  {
+    q: "4. Which of the following is NOT a medium of visual art?",
+    options: ["Wood", "Paint", "Stone", "Essay"],
+    answer: 3
+  },
+  {
+    q: "5. Which of these uses “words” as medium?",
+    options: ["Poetry", "Sculpture", "Novel", "Nonfiction"],
+    answer: 1
+  },
+  {
+    q: "6. The skill and ability possessed by an artist in creating art is called ____.",
+    options: ["Medium", "Technique", "Artistic skill", "Material"],
+    answer: 2
+  },
+  {
+    q: "7. Which describes “technique” in art?",
+    options: ["The subject matter chosen by the artist", "The way artists manipulate materials", "The message of the artwork", "The theme of the artist"],
+    answer: 1
+  },
+  {
+    q: "8. Which art is created in nature using natural materials such as soil, rocks, or leaves?",
+    options: ["Mixed media", "Graffiti", "Land art", "Trapunto"],
+    answer: 2
+  },
+  {
+    q: "9. Digital artworks are created using ____.",
+    options: ["Pigments", "Digital technology", "Soil and sand", "Clay"],
+    answer: 1
+  },
+  {
+    q: "10. Which technique uses rubbing with crayon over textured objects?",
+    options: ["Decalcomania", "Frottage", "Decoupage", "Trapunto"],
+    answer: 1
+  },
+  {
+    q: "11. The French word “Décollage” means ____.",
+    options: ["Take-off", "To glue together", "To stick", "To paint"],
+    answer: 0
+  },
+  {
+    q: "12. Which technique uses cut-outs of paper coated with varnish?",
+    options: ["Decoupage", "Collage", "Assemblage", "Frottage"],
+    answer: 0
+  },
+  {
+    q: "13. Which technique involves applying gouache to paper or glass then transferring onto canvas?",
+    options: ["Collage", "Decalcomania", "Trapunto", "Printmaking"],
+    answer: 1
+  },
+  {
+    q: "14. Which is an example of performance-based contemporary art?",
+    options: ["Body painting", "Graffiti", "Sculpture", "Mixed media"],
+    answer: 0
+  },
+  {
+    q: "15. Which Bohol craft is known for its handwoven mats?",
+    options: ["Tubigon loom weaving", "Pottery in Albur", "Jewelry in Dauis", "Furniture in Loboc"],
+    answer: 0
+  },
+  {
+    q: "16. The ability of an artist to create an artwork using talent and training is called ____.",
+    options: ["Medium", "Artistic skill", "Technique", "Subject"],
+    answer: 1
+  },
+  {
+    q: "17. Which refers to the method of handling art materials?",
+    options: ["Skill", "Technique", "Medium", "Concept"],
+    answer: 1
+  },
+  {
+    q: "18. Which is an example of a drawing medium?",
+    options: ["Charcoal", "Bamboo", "Rattan", "Beads"],
+    answer: 0
+  },
+  {
+    q: "19. Which is an example of a painting medium?",
+    options: ["Watercolor", "Clay", "Stone", "Wood"],
+    answer: 0
+  },
+  {
+    q: "20. Which is the medium of sculpture?",
+    options: ["Pencil", "Clay", "Ink", "Paint"],
+    answer: 1
+  },
+  {
+    q: "21. Which refers to the act of molding clay into jars or pots?",
+    options: ["Pottery", "Printmaking", "Collage", "Weaving"],
+    answer: 0
+  },
+  {
+    q: "22. Which art form uses hands and loom to interlace threads?",
+    options: ["Pottery", "Printmaking", "Weaving", "Carving"],
+    answer: 2
+  },
+  {
+    q: "23. Which art technique uses carving of wood or stone?",
+    options: ["Printmaking", "Sculpting", "Weaving", "Frottage"],
+    answer: 1
+  },
+  {
+    q: "24. Which printmaking technique uses carved wood or linoleum?",
+    options: ["Relief printing", "Intaglio", "Screen printing", "Digital printing"],
+    answer: 0
+  },
+  {
+    q: "25. Which medium is used in fresco painting?",
+    options: ["Wet plaster", "Clay", "Bamboo", "Ink"],
+    answer: 0
+  },
+  {
+    q: "26. Which medium uses powdered colors mixed with egg yolk?",
+    options: ["Tempera", "Fresco", "Oil", "Acrylic"],
+    answer: 0
+  },
+  {
+    q: "27. Which painting medium dries slowly and allows blending?",
+    options: ["Oil", "Tempera", "Watercolor", "Acrylic"],
+    answer: 0
+  },
+  {
+    q: "28. Which skill is shown when an artist creates rhythm and movement in drawing?",
+    options: ["Shading", "Line control", "Blending", "Composition"],
+    answer: 1
+  },
+  {
+    q: "29. Which refers to arranging elements in an artwork for balance and unity?",
+    options: ["Composition", "Blending", "Line control", "Medium"],
+    answer: 0
+  },
+  {
+    q: "30. Which describes intaglio printing?",
+    options: ["Ink fills carved grooves", "Ink remains on surface", "Ink is sprayed with stencil", "Ink is digital"],
+    answer: 0
+  }
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((item, index) => {
+  const questionDiv = document.createElement("div");
+  questionDiv.className = "question-block";
+  questionDiv.innerHTML = `
+    <div class="question">${item.q}</div>
+    <div class="options">
+      ${item.options.map((opt,i)=>`
+        <label>
+          <input type="radio" name="q${index}" value="${i}">
+          ${opt}
+        </label>`).join("")}
+    </div>
+  `;
+  form.appendChild(questionDiv);
+});
+
+function checkAnswers() {
+  let score = 0;
+  questions.forEach((item, idx) => {
+    const chosen = form[`q${idx}`].value;
+    if (parseInt(chosen) === item.answer) score++;
+  });
+  document.getElementById("result").textContent =
+    `You got ${score} out of ${questions.length} correct.`;
+}
+</script>
+
+</body>
+</html>
