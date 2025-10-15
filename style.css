@@ -89,13 +89,35 @@ h1 {
   background: #f0f0f0;
 }
 
-#searchInput {
+.search-container {
+  position: relative;
   width: 90%;
   max-width: 400px;
-  padding: 10px;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 10px 10px 10px 15px; /* add right padding for icon space */
   border-radius: 50px;
   border: 1px solid #aaa;
   font-size: 16px;
+  font-family: 'Inter-Regular';
+}
+
+.search-icon {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.search-icon:hover {
+  opacity: 1;
 }
 
 .screen {
@@ -305,6 +327,7 @@ h1 {
   transition: transform 0.2s ease;
   color: white;
   width: 70%;
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.08);
 }
 .file-card:hover { 
   transform: scale(1.02); 
@@ -359,7 +382,7 @@ h1 {
 
 .quizButton {
   font-family: "Inter-Regular";
-  font-weight: bold;
+  font-size: 1.25rem;
   background-color: #f53ccd;
   width: 250px;
   height: 200px;
@@ -369,7 +392,7 @@ h1 {
   padding: 12px 16px;
   margin: 8px 0;
   cursor: pointer;
-  box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.08);
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.08);
 }
 
 .quizButton:hover {

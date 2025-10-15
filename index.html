@@ -66,7 +66,13 @@
     </div>
 
     <div class="search-container">
-      <input style="font-family: 'Inter-Regular';" type="text" id="searchInput" placeholder="Search lessons here" onkeyup="filterLessons()">
+      <input 
+        type="text" 
+        id="searchInput" 
+        placeholder="Search lessons here" 
+        onkeyup="filterLessons()"
+      >
+      <img src="search_icon.png" class="search-icon" alt="Search">
     </div>
 
 <!--  ----------------------------------------------------------------------------------------------  -->
@@ -373,12 +379,13 @@
       Unlike traditional storage tools such as Google Drive or Classroom, this platform was designed specifically for students, featuring organized subject folders, community-uploaded notes, and features like integrated tests, AI-assisted learning, and a Pomodoro timer. <br>
       If you have any questions, feedback, or suggestions for improvement, please feel free to reach out to the research team.</p>
     </div>
+
 <!--  ----------------------------------------------------------------------------------------------  -->
 
     <hr>
 
     <div class="ai-helper">
-      <h3>Ask the AI Tutor</h3>
+      <h3>Ask our AI Tutor, Pingoo!</h3>
       <input type="text" id="userInput" placeholder="Ask me anything..." style="width: 80%; padding: 10px; margin-top: 10px;">
       <button onclick="askAI()">Ask</button>
 
