@@ -26,6 +26,11 @@ h1 {
   font-weight: 600;
 }
 
+.introWelcome {
+  font-size: 40px; 
+  font-weight: bold;
+}
+
 .heading {
   display: flex;
   align-items: center; 
@@ -565,6 +570,10 @@ h1 {
     font-size: 28px;
     margin: 10px 0 5px 10px;
     line-height: 1.1;
+  }
+
+  .introWelcome {
+    font-size: 30px;
   }
 
   .welcome {
