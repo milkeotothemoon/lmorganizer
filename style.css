@@ -482,6 +482,14 @@ h1 {
   font-size: 26px;
 }
 
+#pingoo-chat {
+  width: 100%;
+  height: 500px; /* or any size you like */
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
 
 
 /* --------------------------------------------------------------------------------------------------- */

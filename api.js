@@ -1,78 +1,73 @@
-const express = require("express");
-const cors = require("cors");
-const fetch = require("node-fetch");
-const pdfParse = require("pdf-parse");
-const mammoth = require("mammoth");
-const fs = require("fs");
-const path = require("path");
+import express from "express";
+import fetch from "node-fetch";
+import cors from "cors";
 
 const app = express();
-app.use(cors());
 app.use(express.json());
+app.use(cors());
 
-// const OPENAI_API_KEY = process.env.OPENAI_API_KEY; // your key
+const BOT_API_KEY = "bp_bak_K7PQmsWkWdxbZe8WGD1-NqkTWsEMzl1mj8Rq"; // your Botpress API key
+const BOT_ID = "c5a4f774-cde3-484b-bea5-636ced79c8e1";
 
-let allNotesText = "";
+const userId = "local_user_1234567890abcdef12345678";
+const conversationId = "local_convo_abcdef1234567890abcdef";
 
-async function loadAllNotes() {
-  const baseFolders = ["MIL", "Contempo"]; // your folders
-  for (const folder of baseFolders) {
-    const files = fs.readdirSync(`./${folder}`);
-    for (const file of files) {
-      const filePath = `./${folder}/${file}`;
-      if (file.endsWith(".pdf")) {
-        const data = await pdfParse(fs.readFileSync(filePath));
-        allNotesText += `\n\n[${file}]\n${data.text}`;
-      } else if (file.endsWith(".docx")) {
-        const result = await mammoth.extractRawText({ path: filePath });
-        allNotesText += `\n\n[${file}]\n${result.value}`;
-      } else if (file.endsWith(".txt")) {
-        allNotesText += fs.readFileSync(filePath, "utf-8");
-      }
-    }
+app.post("/ask", async (req, res) => {
+  const userMessage = req.body.message;
+  console.log("🧠 User asked:", userMessage);
+
+  try {
+    const response = await fetch(
+  `https://api.botpress.cloud/v1/chat/${BOT_ID}/messages`,
+  {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${BOT_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      user: {
+        id: userId,
+      },
+      conversation: {
+        id: conversationId,
+      },
+      messages: [
+        {
+          type: "text",
+          text: userMessage,
+          role: "user",
+        },
+      ],
+    }),
   }
-  console.log("✅ Loaded all main lesson files.");
+);
+
+
+    const text = await response.text();
+console.log("📩 Raw API response:", text);
+
+let data;
+try {
+  data = JSON.parse(text);
+} catch {
+  throw new Error("Botpress returned non-JSON: " + text.slice(0, 200));
 }
 
-// 🧠 move top-level await inside an async function
-(async () => {
-  await loadAllNotes();
+const botReply =
+  data?.responses?.[0]?.text ||
+  data?.messages?.find((m) => m.role === "assistant")?.content ||
+  "No response from Botpress";
 
-  app.post("/ask", async (req, res) => {
-    const { question } = req.body;
+    res.json({ reply: botReply });
+  } catch (err) {
+    console.error("❌ Error communicating with Botpress:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
 
-    try {
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${OPENAI_API_KEY}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          model: "gpt-4o-mini",
-          messages: [
-            {
-              role: "system",
-              content: "You are a helpful study assistant. Use the context provided to answer questions based on school lessons."
-            },
-            {
-              role: "user",
-              content: `Context:\n${allNotesText.slice(0, 8000)}\n\nQuestion: ${question}`
-            }
-          ]
-        })
-      });
+app.listen(3000, () =>
+  console.log("✅ Server running on http://localhost:3000")
+);
 
-      const data = await response.json();
-      console.log("API response:", data);
-
-      const answer = data?.choices?.[0]?.message?.content || "No answer found.";
-      res.json({ answer });
-    } catch (err) {
-      console.error("Server Error:", err);
-      res.status(500).json({ error: "Internal Server Error" });
-    }
-  });
-
-  app.listen(3000, () => console.log("Server running at http://localhost:3000"));
-})();
+// bp_bak_K7PQmsWkWdxbZe8WGD1-NqkTWsEMzl1mj8Rq

@@ -394,18 +394,21 @@
 
 <!--  ----------------------------------------------------------------------------------------------  -->
 
-    <hr>
+<hr>
+<div class="ai-helper">
+  <h3>Ask our AI Tutor, Pingoo!</h3>
 
-    <div class="ai-helper">
-      <h3>Ask our AI Tutor, Pingoo!</h3>
-      <input type="text" id="userInput" placeholder="Ask me anything..." style="width: 80%; padding: 10px; margin-top: 10px;">
-      <button onclick="askAI()">Ask</button>
+  <!-- Where the bot will appear -->
+  <div id="bp-embedded-webchat"></div>
+</div>
 
-      <p id="aiResponse"></p>
-    </div>
+<style>
+  iframe[src*="cdn.botpress.cloud"] {
+    height: 90vh !important;
+  }
+  .bpw-footer {
+    display: none !important;
+  }
+</style>
 
-  </div>
-
-</body>
-<script src="javascript.js"></script>
 </html>
