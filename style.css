@@ -144,7 +144,7 @@ h1 {
 }
 
 .toggle-switch.active {
-  background-color: #4caf50; /* green when active */
+  background-color: #4caf50;
 }
 
 .toggle-circle {
@@ -388,7 +388,7 @@ h1 {
 .quizButton {
   font-family: "Inter-Regular";
   font-size: 1.25rem;
-  background-color: #f53ccd;
+  background-color: #2b310a;
   width: 250px;
   height: 200px;
   color: white;
@@ -492,83 +492,138 @@ h1 {
 
 
 
-/* --------------------------------------------------------------------------------------------------- */
-
-
+/* -------------------------------FIXED & MODERN DARK MODE------------------------------------------- */
 
 .dark-mode {
-  background-color: #111;
+  background: #0c0c0c;
   color: #eee;
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
+/* General Buttons */
 .dark-mode button {
-  color: white;
-}
-
-.dark-mode button:hover{
-  color: black;
-}
-
-.dark-mode .navbar button {
+  color: #fff;
   background: #222;
+  border: 1px solid #333;
+}
+.dark-mode button:hover {
+  background: #222;
+  color: #fff;
+}
+
+/* Navbar */
+.dark-mode .navbar {
+  background: rgba(25, 25, 25, 0.9);
+  border: 1px solid #333;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+}
+.dark-mode .navbar button {
+  background: #181818;
   color: #ddd;
-  border: 1px solid #444;
+  border: 1px solid #333;
 }
 .dark-mode .navbar button.active {
   background: #2ecc71;
   color: #fff;
+  box-shadow: 0 0 8px rgba(46,204,113,0.4);
 }
 
+/* Lesson Cards */
 .dark-mode .lesson-card {
-  background: #1a1a1a;
+  background: rgba(30,30,30,0.9);
+  border: 1px solid #333;
+  color: #e2e2e2;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.dark-mode .lesson-card:hover,
+.dark-mode .lesson-card.open {
+  background: rgba(45,45,45,0.95);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.7);
+  transform: scale(1.02);
+}
+
+/* Upload Box */
+.dark-mode .uploadBox {
+  background: rgba(25,25,25,0.9);
+  border: 1px solid #333;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.6);
   color: #ddd;
 }
-.dark-mode .lesson-card:hover {
-  background: #222;
-}
 
-.dark-mode .uploadBox {
-  background-color: #1a1a1a;
-}
-
+/* AI Helper */
 .dark-mode .ai-helper {
-  background: #181818;
+  background: linear-gradient(145deg, #181818, #1e1e1e);
   color: #eaeaea;
+  border: 1px solid #333;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.6);
 }
 
+/* Pomodoro Widget */
 .dark-mode .pomodoro {
-  background: #222;
-  color: #fff;
+  background: #181818;
+  color: #f2f2f2;
+  border: 1px solid #333;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.7);
 }
 
+/* Menu Dropdown */
 .dark-mode .menu-options {
-  background: #222;
-  border: 1px solid #444;
-  color: white;
+  background: #181818;
+  border: 1px solid #333;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.7);
 }
 
-.dark-mode input, 
+/* Inputs */
+.dark-mode input,
 .dark-mode textarea {
-  background: #2a2a2a;
+  background: #202020;
   color: #f0f0f0;
-  border: 1px solid #555;
+  border: 1px solid #444;
+}
+.dark-mode input:focus,
+.dark-mode textarea:focus {
+  border-color: #2ecc71;
+  box-shadow: 0 0 0 3px rgba(46,204,113,0.25);
+  outline: none;
 }
 
+/* Floating Menu Button */
 .dark-mode .menu-button {
-  top: 20px;
-  right: 20px;
-  background: white;
-  border: none;
-  font-size: 26px;
-  cursor: pointer;
-  color: black;
-  padding: 8px;
-  border-radius: 50%;
-  transition: background 0.2s;
+  background: #2ecc71;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+}
+.dark-mode .menu-button:hover {
+  background: #25b865;
 }
 
+/* File Cards */
+.dark-mode .file-card {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.7);
+  border: 1px solid rgba(255,255,255,0.1);
+}
 
+/* Search */
+.dark-mode #searchInput {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #f0f0f0;
+}
 
+.dark-mode .sub-screen {
+  transition: max-height 0.5s ease;
+}
+
+.dark-mode .sub-screen.active {
+  transition: max-height 0.5s ease;
+}
+
+/* Smooth transition */
+.dark-mode * {
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
 /* --------------------------------------------------------------------------------------------------- */
 
 
@@ -700,4 +755,129 @@ h1 {
     width: 100%; 
     justify-content: space-between;
   }
+}
+
+/* ===================== MODERN UI POLISH PACK ===================== */
+
+/* Global feel */
+body {
+  background: linear-gradient(135deg, #f9fafc 0%, #eef3f8 100%);
+  color: #111;
+  line-height: 1.6;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Buttons */
+button, .chooseButton, .uploadButton {
+  transition: all 0.25s ease;
+}
+button:hover, .chooseButton:hover, .uploadButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+/* Navbar */
+.navbar {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  padding: 12px 16px;
+  justify-content: center;
+}
+.navbar button {
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background-color: #f7f9fc;
+}
+.navbar button.active {
+  background: #04AA6D;
+  box-shadow: 0 4px 10px rgba(4, 170, 109, 0.3);
+}
+
+/* Lesson Cards */
+.lesson-card {
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.lesson-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+/* File Cards */
+.file-card {
+  backdrop-filter: blur(5px);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  border: 1px solid rgba(255,255,255,0.6);
+  transition: all 0.25s ease;
+}
+.file-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+/* Upload Box */
+.uploadBox {
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 3px 14px rgba(0,0,0,0.05);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* AI Helper Box */
+.ai-helper {
+  background: linear-gradient(145deg, #ffffff, #f4f6ff);
+  border: 1px solid #e0e5f0;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+/* Search Bar */
+#searchInput {
+  border: 1.5px solid #d0d7e2;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+#searchInput:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 4px rgba(74,144,226,0.15);
+  outline: none;
+}
+
+/* Quiz Button Glow */
+.quizButton {
+  background: linear-gradient(135deg, #3a5a40, #26382f);
+  box-shadow: 0 4px 15px #3a5a40;
+  transition: all 0.3s ease;
+}
+.quizButton:hover {
+  background: linear-gradient(135deg, #3a5a40, #26382f);
+  box-shadow: 0 6px 20px #3a5a40;
+}
+
+/* Menu floating button */
+.menu-button {
+  background: linear-gradient(135deg, #4a90e2, #357ab8);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: all 0.25s ease;
+}
+.menu-button:hover {
+  transform: rotate(10deg) scale(1.05);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+/* Pomodoro */
+.pomodoro {
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.3);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+/* Smooth transition for dark mode toggle */
+* {
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
