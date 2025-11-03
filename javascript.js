@@ -1,182 +1,190 @@
-
 const menuButton = document.getElementById('menuButton');
-const menuOptions = document.getElementById('menuOptions');
+const sidebar = document.querySelector('.sidebar');
+
+// Create overlay
+const overlay = document.createElement('div');
+overlay.classList.add('overlay');
+document.body.appendChild(overlay);
+
+// Toggle sidebar
+menuButton.addEventListener('click', () => {
+  sidebar.classList.toggle('active');
+  overlay.classList.toggle('show');
+});
+
+// Close sidebar when clicking outside
+overlay.addEventListener('click', () => {
+  sidebar.classList.remove('active');
+  overlay.classList.remove('show');
+});
 
 function goTo(screenId) {
-  const screens = document.querySelectorAll('.screen');
-  screens.forEach(screen => screen.classList.remove('active'));
-  document.getElementById(screenId).classList.add('active');
+  // Hide welcome screen after first subject click
+  const welcome = document.getElementById('Welcome');
+  if (welcome) welcome.style.display = 'none';
 
-  const buttons = document.querySelectorAll('.navbar button');
+  // Hide all screens first
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.style.display = 'none';
+  });
+
+  // Show the selected subject
+  const target = document.getElementById(screenId);
+  if (target) target.style.display = 'block';
+
+  // Update active state for buttons (optional)
+  const buttons = document.querySelectorAll('.subject-list button');
   buttons.forEach(btn => btn.classList.remove('active'));
-
-  const activeBtn = document.querySelector(`.navbar button[onclick="goTo('${screenId}')"]`);
+  const activeBtn = document.querySelector(`.subject-list button[onclick="goTo('${screenId}')"]`);
   if (activeBtn) activeBtn.classList.add('active');
+  
+  const aiCard = document.querySelector('.ai-card');
+  if (aiCard) {
+    const hideOn = ['Settings', 'About', 'Welcome']; // add 'Welcome' too if you use a separate id
+    if (hideOn.includes(screenId)) {
+      aiCard.style.display = 'none';
+    } else {
+      aiCard.style.display = 'block';
+    }
+  }
 }
 
+// Expand/collapse lessons
 function toggleLesson(id, card) {
   const content = document.getElementById(id);
 
+  // Check if it's already open
   if (content.classList.contains("active")) {
-    // closing → measure height, then force 0
-    content.style.maxHeight = content.scrollHeight + "px"; 
-    setTimeout(() => {
+    // Closing animation
+    content.style.maxHeight = content.scrollHeight + "px";
+    requestAnimationFrame(() => {
       content.style.maxHeight = "0";
-    }, 1);
+    });
 
     content.classList.remove("active");
     card.classList.remove("open");
   } else {
-    // opening → set to real height
-    content.style.maxHeight = content.scrollHeight + "px";
-
+    // Opening animation
     content.classList.add("active");
     card.classList.add("open");
+
+    // setTimeout ensures DOM update before measuring height
+    setTimeout(() => {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }, 1);
   }
-  
 }
-
-window.onload = () => {
-  const menuButton = document.getElementById('menuButton');
-  const menuOptions = document.getElementById('menuOptions');
-
-  menuButton.addEventListener('click', (e) => {
-  e.stopPropagation();
-  menuOptions.classList.toggle('show');
-  menuOptions.style.display = menuOptions.classList.contains('show') ? 'block' : 'none';
-});
-
-  document.addEventListener('click', (e) => {
-    if (!menuButton.contains(e.target) && !menuOptions.contains(e.target)) {
-      menuOptions.style.display = 'none';
-    }
-  });
-};
 
 let timer;
 let isRunning = false;
 let timeLeft = 25 * 60;
 let isWorkTime = true;
 
-const pomodoro = document.getElementById('pomodoro');
-const timerDisplay = document.getElementById('timerDisplay');
-const sessionLabel = document.getElementById('sessionLabel');
-const startBtn = document.getElementById('startBtn');
-const resetBtn = document.getElementById('resetBtn');
-const closePomodoro = document.getElementById('closePomodoro');
-
 function openPomodoro() {
-  pomodoro.style.display = 'block';
+  document.getElementById('pomodoro').style.display = 'block';
 }
-
-closePomodoro.addEventListener('click', () => {
-  pomodoro.style.display = 'none';
-  clearInterval(timer);
-  isRunning = false;
-  startBtn.textContent = 'Start';
-});
 
 function updateDisplay() {
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
-  timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  document.getElementById('timerDisplay').textContent =
+    `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
 
-const toggleSwitch = document.getElementById("themeToggle");
-
-toggleSwitch.addEventListener("click", () => {
-  toggleSwitch.classList.toggle("active");
-  toggleDarkMode(); // <-- this actually runs the function!
-});
-
-function toggleDarkMode() {
-  document.body.classList.toggle("dark-mode");
-
-  // Optional: save preference
-  if (document.body.classList.contains("dark-mode")) {
-    localStorage.setItem("theme", "dark");
-  } else {
-    localStorage.setItem("theme", "light");
-  }
-}
-
-// On load, apply saved theme + toggle position
+// ✅ combine all DOMContentLoaded logic into one
 window.addEventListener("DOMContentLoaded", () => {
+  const pomodoro = document.getElementById('pomodoro');
+  const startBtn = document.getElementById('startBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const closePomodoro = document.getElementById('closePomodoro');
+  const sessionLabel = document.getElementById('sessionLabel');
+  const toggleSwitch = document.getElementById("themeToggle");
+  
+  document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
+
+  // Show welcome first
+  const welcome = document.getElementById('Welcome');
+  if (welcome) welcome.style.display = 'block';
+
+  // Hide AI tutor on welcome
+  const aiCard = document.querySelector('.ai-card');
+  if (aiCard) aiCard.style.display = 'none';
+
+  // --- dark mode ---
   if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("dark-mode");
-    toggleSwitch.classList.add("active"); // keeps toggle in correct position
+    if (toggleSwitch) toggleSwitch.classList.add("active");
   }
-});
 
-function toggleTimer() {
-  if (isRunning) {
-    clearInterval(timer);
-    startBtn.textContent = 'Start';
-  } else {
-    timer = setInterval(() => {
-      timeLeft--;
-      updateDisplay();
+  if (toggleSwitch) {
+    toggleSwitch.addEventListener("click", () => {
+      toggleSwitch.classList.toggle("active");
+      document.body.classList.toggle("dark-mode");
 
-      if (timeLeft <= 0) {
-        clearInterval(timer);
-        if (isWorkTime) {
-          timeLeft = 5 * 60;
-          sessionLabel.textContent = 'Break Time';
-          alert('Work session done! Time for a 5-min break.');
-        } else {
-          timeLeft = 25 * 60;
-          sessionLabel.textContent = 'Work Time';
-          alert('Break over! Back to work.');
-        }
-        isWorkTime = !isWorkTime;
-        updateDisplay();
+      if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("theme", "dark");
+      } else {
+        localStorage.setItem("theme", "light");
       }
-    }, 1000);
-    startBtn.textContent = 'Pause';
+    });
   }
-  isRunning = !isRunning;
-}
 
-function resetTimer() {
-  clearInterval(timer);
-  isRunning = false;
-  isWorkTime = true;
-  timeLeft = 25 * 60;
-  sessionLabel.textContent = 'Work Time';
-  startBtn.textContent = 'Start';
+  // --- pomodoro ---
+  if (closePomodoro) {
+    closePomodoro.addEventListener('click', () => {
+      pomodoro.style.display = 'none';
+      clearInterval(timer);
+      isRunning = false;
+      startBtn.textContent = 'Start';
+    });
+  }
+
+  function toggleTimer() {
+    if (isRunning) {
+      clearInterval(timer);
+      startBtn.textContent = 'Start';
+    } else {
+      timer = setInterval(() => {
+        timeLeft--;
+        updateDisplay();
+
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          if (isWorkTime) {
+            timeLeft = 5 * 60;
+            sessionLabel.textContent = 'Break Time';
+            alert('Work session done! Time for a 5-min break.');
+          } else {
+            timeLeft = 25 * 60;
+            sessionLabel.textContent = 'Work Time';
+            alert('Break over! Back to work.');
+          }
+          isWorkTime = !isWorkTime;
+          updateDisplay();
+        }
+      }, 1000);
+      startBtn.textContent = 'Pause';
+    }
+    isRunning = !isRunning;
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    isRunning = false;
+    isWorkTime = true;
+    timeLeft = 25 * 60;
+    sessionLabel.textContent = 'Work Time';
+    startBtn.textContent = 'Start';
+    updateDisplay();
+  }
+
+  if (startBtn && resetBtn) {
+    startBtn.addEventListener('click', toggleTimer);
+    resetBtn.addEventListener('click', resetTimer);
+  }
+
   updateDisplay();
-}
-
-startBtn.addEventListener('click', toggleTimer);
-resetBtn.addEventListener('click', resetTimer);
-updateDisplay();
-
-function filterLessons() {
-  const query = document.getElementById('searchInput').value.toLowerCase();
-  const lessonCards = document.querySelectorAll('.lesson-card');
-  let hasVisible = false;
-
-  lessonCards.forEach(card => {
-    const title = card.querySelector('.lesson-title')?.textContent.toLowerCase() || '';
-    const keywords = card.getAttribute('data-keywords')?.toLowerCase() || '';
-
-    const match = title.includes(query) || keywords.includes(query);
-    card.style.display = match ? 'flex' : 'none';
-    if (match) hasVisible = true;
-  });
-
-  let noResults = document.getElementById('noResults');
-  if (!noResults) {
-    noResults = document.createElement('p');
-    noResults.id = 'noResults';
-    noResults.textContent = 'No lessons found.';
-    noResults.style.textAlign = 'center';
-    noResults.style.display = 'none';
-    document.querySelector('.container').appendChild(noResults);
-  }
-
-  noResults.style.display = hasVisible ? 'none' : 'block';
-}
+});
 
 // ✅ Import Supabase client FIRST
 

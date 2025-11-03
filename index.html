@@ -1,118 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Learning Materials Organizer</title>
-  <link rel="shortcut icon" type="image/x-icon" href="icon.ico"/>
-  <link rel="stylesheet" href="style.css">
+  <title>G12 Learning Materials Organizer</title>
+  <link rel="stylesheet" href="modern.css">
+  <link rel="shortcut icon" href="icon.ico" type="image/x-icon">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    async function askAI() {
-      const userInput = document.getElementById("userInput").value;
-
-      if (!userInput.trim()) {
-        alert("Please enter a question!");
-        return;
-      }
-
-      const response = await fetch("http://localhost:3000/ask", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: userInput })
-      });
-
-      const data = await response.json();
-      document.getElementById("aiResponse").innerText = data.answer || "No response.";
-    }
-  </script>
 </head>
 
 <body>
-  <div class="heading">
-  <img src="logo.png" class="logo">
-  <h1> G12 Learning Materials Organizer </h1>
-  </div>
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-section" style="display:flex;">
+        <img src="logo.png" class="logo" alt="Logo">
+        <h2>Group 3</h2>
+      </div>
 
-  <div class="menu-wrapper">
-    <button id="menuButton" class="menu-button">⋮</button>
-    <div id="menuOptions" class="menu-options">
-      <button onclick="goTo('Settings')">Settings</button>
-      <button onclick="goTo('About')">About</button>
+    </div>
+
+    <div class="sidebar-middle">
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search lessons here" onkeyup="filterLessons()">
+        <img src="search_icon.png" class="search-icon" alt="Search">
+      </div>
+
+      <nav class="subject-list">
+        <button style="font-family: 'Inter-Regular';" onclick="goTo('Contemp')">Contemp</button>
+        <button onclick="goTo('MIL')">MIL</button>
+        <button onclick="goTo('Philo')">Philo</button>
+        <button onclick="goTo('PE')">P.E.</button>
+      </nav>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="theme-toggle" id="themeToggle">
+        <img src="sun.png" class="icon sun-icon" alt="Light Mode">
+        <div class="toggle-circle"></div>
+        <img src="moon.png" class="icon moon-icon" alt="Dark Mode">
+      </div>
+      <button onclick="goTo('About')"><img src="about.png" style="width: 15px; height: 15px;"></button>
       <button onclick="openPomodoro()">Pingoodoro</button>
     </div>
-  </div>
+  </aside>
 
-  <div id="pomodoro" class="pomodoro">
-    <div class="pomodoro-header">
-      <span>🐧 Pingoodoro 💢</span>
-      <button id="closePomodoro">✕</button>
-    </div>
-    <div class="pomodoro-body">
-      <h2 id="timerDisplay">25:00</h2>
-      <p id="sessionLabel">Work Time</p>
-      <div class="pomodoro-buttons">
-        <button id="startBtn">Start</button>
-        <button id="resetBtn">Reset</button>
+  <main class="content">
+    <div class="topbar">
+      <button id="menuButton" class="menu-btn">☰</button>
+      <h1 style="font-family: Inter Medium; font-size: 40px;">G12 Learning Materials Organizer</h1>
+      <div class="actions">
+        <!-- any buttons like settings or profile -->
       </div>
     </div>
-  </div>
 
-  <div class="container">
-    <div class="navbar">
-      <button class="navbarButton" onclick="goTo('Contemp')">Contemp</button>
-      <button class="navbarButton" onclick="goTo('MIL')">MIL</button>
-      <button class="navbarButton" onclick="goTo('Philo')">Philosophy</button>
-      <button class="navbarButton" onclick="goTo('PE')">P.E.</button>
-    </div>
-
-    <div class="search-container">
-      <input 
-        type="text" 
-        id="searchInput" 
-        placeholder="Search lessons here" 
-        onkeyup="filterLessons()"
-      >
-      <img src="search_icon.png" class="search-icon" alt="Search">
-    </div>
-
-<!--  ----------------------------------------------------------------------------------------------  -->
-
-  <div class="screen active">
-    <p>
-    <span class="introWelcome"> Welcome to the G12 Learning Materials Organizer! </span> <br>
-    This website is designed to help you manage your Grade 12 lessons. <br>
-    You can browse organized study materials and upload your own notes. <br>
-    Below is the AI tutor customized to help you with questions, and a Pomodoro Timer on the menu on the right. <br>
-    Click on a subject above to start!
-    </p>
-  </div>
-
-<!--  ----------------------------------------------------------------------------------------------  -->
-
-    <div id="Contemp" class="screen">
-      <div style="text-align: center;">
-        <h1 class="welcome" style="font-size: 30px;"> Welcome to Contemporary Arts of the Philippine Region!</h1>
+    <section id="Welcome" class="screen">
+      <div class="welcome-card">
+        <h2>Welcome to the G12 Learning Materials Organizer!</h2>
+        <p>
+          This platform helps you organize Grade 12 lessons, upload notes, take tests,
+          and study efficiently with the integrated AI tutor and Pomodoro timer.
+          Click on a subject below to start studying!
+        </p>
       </div>
+  </section>
 
-      <hr>
+    <!-- ------------------------------------------------------------------------------------- -->
+    <section id="Contemp" class="screen">
+      <h2>Contemporary Arts of the Philippine Region (CPAR)</h2>
 
-      <h2>Uploaded Student Notes</h2>
-      <div class="uploadBox">
-        <ul id="fileList-Contemp"></ul>
-        <div class="uploadBar">
-          <p style="font-weight: bold;"> Upload your notes!</p>
+      <div class="upload-card">
+        <h2>Uploaded Student Notes</h2>
+        <div class="uploadBox">
+          <ul id="fileList-Contemp"></ul>
+          <div class="uploadBar">
+            <p style="font-weight: bold;"> Upload your notes!</p>
 
-          <label class="chooseButton" for="fileInput-Contemp">Choose File</label>
-          <input type="file" id="fileInput-Contemp" style="display:none;">
-          <span id="fileName-Contemp" class="file-name">No file chosen</span>
+            <label class="chooseButton" for="fileInput-Contemp">Choose File</label>
+            <input type="file" id="fileInput-Contemp" style="display:none;">
+            <span id="fileName-Contemp" class="file-name">No file chosen</span>
 
-          <button class="uploadButton" onclick="uploadFile('Contemp')">+</button> 
+            <button class="uploadButton" onclick="uploadFile('Contemp')">+</button> 
+          </div>
         </div>
       </div>
 
-      <hr>
-
-      <div class="lesson-card" onclick="toggleLesson('contemp1', this)" data-keywords="contemporary art history module modern philippines">
+      <div class="lesson-grid">
+        <div class="lesson-card" onclick="toggleLesson('contemp1', this)" data-keywords="contemporary art history module modern philippines">
         <div class="lesson-title">
           <span>Lesson 1: Techniques and Performance Practices</span>
           <span>Lesson 2: Local Materials Used in Creating Art</span>
@@ -168,254 +141,229 @@
         </a>
         <button class="quizButton" onclick="location.href='Tests/ContempQuiz4.html'" type="button"> Take the Test! </button>
       </div>
-    </div>
-
-<!--  ----------------------------------------------------------------------------------------------  -->
-
-    <div id="PE" class="screen">
-      <div style="text-align: center;">
-        <h1 style="font-size: 30px;"> Welcome to Health-Oriented Physical Education!</h1>
       </div>
+    </section>
 
-      <hr>
-
-      <h2>Uploaded Student Notes</h2>
-      <div class="uploadBox">
-        <ul id="fileList-PE"></ul>
-        <div class="uploadBar">
-          <p style="font-weight: bold;"> Upload your notes!</p>
-
-          <label class="chooseButton" for="fileInput-PE">Choose File</label>
-          <input type="file" id="fileInput-PE" style="display:none;">
-          <span id="fileName-PE" class="file-name">No file chosen</span>
-          
-          <button class="uploadButton" onclick="uploadFile('PE')">+</button> 
-        </div>
-      </div>
-
-      <hr>
-
-      <div class="lesson-card" onclick="toggleLesson('pe1', this)">
-        <span>Lesson 1: Personal Safety Protocol during Moderate-Vigorous Physical Activities (MVPA) Participation</span>
-        <span class="arrow">▼</span>
-      </div>
-      <div id="pe1" class="sub-screen"> 
-        <a href="PE/PE Module 1.pdf" class="file-card main-module pdf" target="_blank">
-          <span class="file-title">PE 3</span>
-          <img src="pdficon.svg" class="file-icon" alt="Word icon">
-        </a>
-        <a href="https://youtu.be/LalEf5b2cOI?si=MApmJjclUaPSLxhP" class="file-card main-module youtube" target="_blank">
-          <span class="file-title"> Nature of Dance </span>
-          <img src="youtubeicon.png" class="file-icon" alt="Youtube Icon"> 
-        </a>
-      </div>
-
-      <p style="color: gray;"> The rest of the PE Modules are still in progress . . . Will be uploaded soon! </p>
-    </div>
-
-<!--  ----------------------------------------------------------------------------------------------  -->
-
-    <div id="Philo" class="screen">
-      <div style="text-align: center;">
-        <h1 style="font-size: 30px;"> Welcome to The Philosophy of the Human Person.</h1>
-      </div>
-
-      <hr>
-
-      <h2>Uploaded Student Notes</h2>
-      <div class="uploadBox">
-        <ul id="fileList-Philo"></ul>
-        <div class="uploadBar">
-          <p style="font-weight: bold;"> Upload your notes!</p>
-
-          <label class="chooseButton" for="fileInput-Philo">Choose File</label>
-          <input type="file" id="fileInput-Philo" style="display:none;">
-          <span id="fileName-Philo" class="file-name">No file chosen</span>
-          
-          <button class="uploadButton" onclick="uploadFile('Philo')">+</button> 
-        </div>
-      </div>
-
-      <hr>
-
-      <div class="lesson-card" onclick="toggleLesson('philo1', this)">
-        <span>Lesson 1: The Freedom of The Human Person</span>
-        <span class="arrow">▼</span>
-      </div>
-      <div id="philo1" class="sub-screen"> 
-        <a href="Philo/Philo Module 1.pdf" class="file-card main-module pdf" target="_blank">
-          <span class="file-title">Philo Module 1</span>
-          <img src="pdficon.svg" class="file-icon" alt="Word icon">
-        </a>
-      </div>
-
-      <div class="lesson-card" onclick="toggleLesson('philo2', this)">
-        <span>Lesson 2: Intersubjectivity</span>
-        <span class="arrow">▼</span>
-      </div>
-      <div id="philo2" class="sub-screen"> 
-        <a href="Philo/Philo Module 2.pdf" class="file-card main-module pdf" target="_blank">
-          <span class="file-title">Philo Module 2</span>
-          <img src="pdficon.svg" class="file-icon" alt="Word icon">
-        </a>
-      </div>
-
-      <div class="lesson-card" onclick="toggleLesson('philo3', this)">
-        <span>Lesson 3: The Human Person in the Society</span>
-        <span class="arrow">▼</span>
-      </div>
-      <div id="philo3" class="sub-screen"> 
-        <a href="Philo/Philo Module 3.pdf" class="file-card main-module pdf" target="_blank">
-          <span class="file-title">Philo Module 3</span>
-          <img src="pdficon.svg" class="file-icon" alt="Word icon">
-        </a>
-      </div>
-
-      <div class="lesson-card" onclick="toggleLesson('philo4', this)">
-        <span>Lesson 4: The Human Person in the Environment</span>
-        <span class="arrow">▼</span>
-      </div>
-      <div id="philo4" class="sub-screen"> 
-        <a href="Philo/Philo Module 4.pdf" class="file-card main-module pdf" target="_blank">
-          <span class="file-title">Philo Module 4</span>
-          <img src="pdficon.svg" class="file-icon" alt="Word icon">
-        </a>
-        <button class="quizButton" onclick="location.href='Tests/PhiloQuiz1.html'" type="button"> Take the Test! </button>
-      </div>
-    </div>
-
-<!--  ----------------------------------------------------------------------------------------------  -->
-
-    <div id="MIL" class="screen">
-      <div style="text-align: center;">
-        <h1 style="font-size: 30px;"> Welcome to Media Information Literacy:)</h1>
-      </div>
-
-      <hr>
-
-      <h2>Uploaded Student Notes</h2>
-      <div class="uploadBox">
-        <ul id="fileList-MIL"></ul>
-        <div class="uploadBar">
-          <p style="font-weight: bold;"> Upload your notes!</p>
-
-          <label class="chooseButton" for="fileInput-MIL">Choose File</label>
-          <input type="file" id="fileInput-MIL" style="display:none;">
-          <span id="fileName-MIL" class="file-name">No file chosen</span>
-          
-          <button class="uploadButton" onclick="uploadFile('MIL')">+</button> 
-        </div>
-      </div>
-
-      <hr>
-
-      <div class="lesson-card" onclick="toggleLesson('mil1', this)">
-        <span>Lesson 1: Opportunities, Challenges, and Power of Media and Information</span>
-        <span class="arrow">▼</span>
-      </div>
-      <div id="mil1" class="sub-screen"> 
-        <a href="MIL/MIL Module 1.docx" class="file-card main-module word" target="_blank">
-          <span class="file-title">MIL Module 1</span>
-          <img src="msword.png" class="file-icon" alt="Word icon">
-        </a>
-      </div>
-
-      <div class="lesson-card" onclick="toggleLesson('mil2', this)">
-        <span>Lesson 2: Current and Future Trends of Media and Information</span>
-        <span class="arrow">▼</span>
-      </div>
-      <div id="mil2" class="sub-screen"> 
-        <a href="MIL/MIL Module 2.docx" class="file-card main-module word" target="_blank">
-          <span class="file-title">MIL Module 2</span>
-          <img src="msword.png" class="file-icon" alt="Word icon">
-        </a>
-      </div>
-
-      <div class="lesson-card" onclick="toggleLesson('mil3', this)">
-        <span>Lesson 3: Media and Information Literate Individual</span>
-        <span class="arrow">▼</span>
-      </div>
-      <div id="mil3" class="sub-screen"> 
-        <a href="MIL/MIL Module 3.docx" class="file-card main-module word" target="_blank">
-          <span class="file-title">MIL Module 3</span>
-          <img src="msword.png" class="file-icon" alt="Word icon">
-        </a>
-      </div>
-
-      <div class="lesson-card" onclick="toggleLesson('mil4', this)">
-        <span>Lesson 4: Text Information and Visual Media</span>
-        <span class="arrow">▼</span>
-      </div>
-      <div id="mil4" class="sub-screen"> 
-        <a href="MIL/MIL Module 4.pdf" class="file-card main-module pdf" target="_blank">
-          <span class="file-title">MIL Module 4</span>
-          <img src="pdficon.svg" class="file-icon" alt="Word icon">
-        </a>
-      </div>
-
-      <div class="lesson-card" onclick="toggleLesson('mil5', this)">
-        <span>Lesson 5: Audio Information and Motion Media</span>
-        <span class="arrow">▼</span>
-      </div>
-      <div id="mil5" class="sub-screen"> 
-        <a href="MIL/MIL Module 5.pdf" class="file-card main-module pdf" target="_blank">
-          <span class="file-title">MIL Module 5</span>
-          <img src="pdficon.svg" class="file-icon" alt="Word icon">
-        </a>
-      </div>
-
-      <div class="lesson-card" onclick="toggleLesson('mil6', this)">
-        <span>Lesson 6: Manipulative and Interactive Media</span>
-        <span class="arrow">▼</span>
-      </div>
-      <div id="mil6" class="sub-screen"> 
-        <a href="MIL/MIL Module 6.pdf" class="file-card main-module pdf" target="_blank">
-          <span class="file-title">MIL Module 6</span>
-          <img src="pdficon.svg" class="file-icon" alt="Word icon">
-        </a>
-      </div>
-    </div>
+    <!-- ------------------------------------------------------------------------------------- -->
     
-<!--  ----------------------------------------------------------------------------------------------  -->
+    <section id="MIL" class="screen">
+      <h2>Media and Information Literacy (MIL)</h2>
 
-    <div id="Settings" class="screen">
-      <h2> Settings </h2>
-      <div class="settingsOption">
-      <p> Dark Mode </p>
-      <div class="toggle-switch" id="themeToggle">
-        <div class="toggle-circle"></div>
+      <div class="upload-card">
+        <h2>Uploaded Student Notes</h2>
+        <div class="uploadBox">
+          <ul id="fileList-MIL"></ul>
+          <div class="uploadBar">
+            <p style="font-weight: bold;"> Upload your notes!</p>
+
+            <label class="chooseButton" for="fileInput-MIL">Choose File</label>
+            <input type="file" id="fileInput-MIL" style="display:none;">
+            <span id="fileName-MIL" class="file-name">No file chosen</span>
+            
+            <button class="uploadButton" onclick="uploadFile('MIL')">+</button> 
+          </div>
+        </div>
       </div>
+
+      <div class="lesson-grid">
+        <div class="lesson-card" onclick="toggleLesson('mil1', this)">
+          <span>Lesson 1: Opportunities, Challenges, and Power of Media and Information</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div id="mil1" class="sub-screen"> 
+          <a href="MIL/MIL Module 1.docx" class="file-card main-module word" target="_blank">
+            <span class="file-title">MIL Module 1</span>
+            <img src="msword.png" class="file-icon" alt="Word icon">
+          </a>
+        </div>
+
+        <div class="lesson-card" onclick="toggleLesson('mil2', this)">
+          <span>Lesson 2: Current and Future Trends of Media and Information</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div id="mil2" class="sub-screen"> 
+          <a href="MIL/MIL Module 2.docx" class="file-card main-module word" target="_blank">
+            <span class="file-title">MIL Module 2</span>
+            <img src="msword.png" class="file-icon" alt="Word icon">
+          </a>
+        </div>
+
+        <div class="lesson-card" onclick="toggleLesson('mil3', this)">
+          <span>Lesson 3: Media and Information Literate Individual</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div id="mil3" class="sub-screen"> 
+          <a href="MIL/MIL Module 3.docx" class="file-card main-module word" target="_blank">
+            <span class="file-title">MIL Module 3</span>
+            <img src="msword.png" class="file-icon" alt="Word icon">
+          </a>
+        </div>
+
+        <div class="lesson-card" onclick="toggleLesson('mil4', this)">
+          <span>Lesson 4: Text Information and Visual Media</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div id="mil4" class="sub-screen"> 
+          <a href="MIL/MIL Module 4.pdf" class="file-card main-module pdf" target="_blank">
+            <span class="file-title">MIL Module 4</span>
+            <img src="pdficon.svg" class="file-icon" alt="Word icon">
+          </a>
+        </div>
+
+        <div class="lesson-card" onclick="toggleLesson('mil5', this)">
+          <span>Lesson 5: Audio Information and Motion Media</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div id="mil5" class="sub-screen"> 
+          <a href="MIL/MIL Module 5.pdf" class="file-card main-module pdf" target="_blank">
+            <span class="file-title">MIL Module 5</span>
+            <img src="pdficon.svg" class="file-icon" alt="Word icon">
+          </a>
+        </div>
+
+        <div class="lesson-card" onclick="toggleLesson('mil6', this)">
+          <span>Lesson 6: Manipulative and Interactive Media</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div id="mil6" class="sub-screen"> 
+          <a href="MIL/MIL Module 6.pdf" class="file-card main-module pdf" target="_blank">
+            <span class="file-title">MIL Module 6</span>
+            <img src="pdficon.svg" class="file-icon" alt="Word icon">
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------------------------------- -->
+
+    <section id="Philo" class="screen">
+      <h2>The Philosophy of the Human Person (Philosophy)</h2>
+
+      <div class="upload-card">
+        <h2>Uploaded Student Notes</h2>
+        <div class="uploadBox">
+          <ul id="fileList-Philo"></ul>
+          <div class="uploadBar">
+            <p style="font-weight: bold;"> Upload your notes!</p>
+
+            <label class="chooseButton" for="fileInput-Philo">Choose File</label>
+            <input type="file" id="fileInput-Philo" style="display:none;">
+            <span id="fileName-Philo" class="file-name">No file chosen</span>
+            
+            <button class="uploadButton" onclick="uploadFile('Philo')">+</button> 
+          </div>
+        </div>
+      </div>
+
+      <div class="lesson-grid">
+        <div class="lesson-card" onclick="toggleLesson('philo1', this)">
+          <span>Lesson 1: The Freedom of The Human Person</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div id="philo1" class="sub-screen"> 
+          <a href="Philo/Philo Module 1.pdf" class="file-card main-module pdf" target="_blank">
+            <span class="file-title">Philo Module 1</span>
+            <img src="pdficon.svg" class="file-icon" alt="Word icon">
+          </a>
+        </div>
+
+        <div class="lesson-card" onclick="toggleLesson('philo2', this)">
+          <span>Lesson 2: Intersubjectivity</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div id="philo2" class="sub-screen"> 
+          <a href="Philo/Philo Module 2.pdf" class="file-card main-module pdf" target="_blank">
+            <span class="file-title">Philo Module 2</span>
+            <img src="pdficon.svg" class="file-icon" alt="Word icon">
+          </a>
+        </div>
+
+        <div class="lesson-card" onclick="toggleLesson('philo3', this)">
+          <span>Lesson 3: The Human Person in the Society</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div id="philo3" class="sub-screen"> 
+          <a href="Philo/Philo Module 3.pdf" class="file-card main-module pdf" target="_blank">
+            <span class="file-title">Philo Module 3</span>
+            <img src="pdficon.svg" class="file-icon" alt="Word icon">
+          </a>
+        </div>
+
+        <div class="lesson-card" onclick="toggleLesson('philo4', this)">
+          <span>Lesson 4: The Human Person in the Environment</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div id="philo4" class="sub-screen"> 
+          <a href="Philo/Philo Module 4.pdf" class="file-card main-module pdf" target="_blank">
+            <span class="file-title">Philo Module 4</span>
+            <img src="pdficon.svg" class="file-icon" alt="Word icon">
+          </a>
+          <button class="quizButton" onclick="location.href='Tests/PhiloQuiz1.html'" type="button"> Take the Test! </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------------------------------- -->
+
+    <section id="PE" class="screen">
+      <h2>Health-Oriented Physical Education (P.E.)</h2>
+
+      <div class="upload-card">
+        <h2>Uploaded Student Notes</h2>
+        <div class="uploadBox">
+          <ul id="fileList-PE"></ul>
+          <div class="uploadBar">
+            <p style="font-weight: bold;"> Upload your notes!</p>
+
+            <label class="chooseButton" for="fileInput-PE">Choose File</label>
+            <input type="file" id="fileInput-PE" style="display:none;">
+            <span id="fileName-PE" class="file-name">No file chosen</span>
+            
+            <button class="uploadButton" onclick="uploadFile('PE')">+</button> 
+          </div>
+        </div>
+      </div>
+
+      <div class="lesson-grid">
+        <div class="lesson-card" onclick="toggleLesson('pe1', this)">
+          <span>Lesson 1: Personal Safety Protocol during Moderate-Vigorous Physical Activities (MVPA) Participation</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div id="pe1" class="sub-screen"> 
+          <a href="PE/PE Module 1.pdf" class="file-card main-module pdf" target="_blank">
+            <span class="file-title">PE 3</span>
+            <img src="pdficon.svg" class="file-icon" alt="Word icon">
+          </a>
+          <a href="https://youtu.be/LalEf5b2cOI?si=MApmJjclUaPSLxhP" class="file-card main-module youtube" target="_blank">
+            <span class="file-title"> Nature of Dance </span>
+            <img src="youtubeicon.png" class="file-icon" alt="Youtube Icon"> 
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------------------------------- -->
+    
+      <div class="ai-card">
+        <h3>Ask Pingoo 🐧</h3>
+        <div id="bp-embedded-webchat" style="height: 400px;"></div>
+      </div>
+
+    <div id="pomodoro" class="pomodoro">
+      <div class="pomodoro-header">
+        <span>🐧 Pingoodoro 💢</span>
+        <button id="closePomodoro">✕</button>
+      </div>
+      <div class="pomodoro-body">
+        <h2 id="timerDisplay">25:00</h2>
+        <p id="sessionLabel">Work Time</p>
+        <div class="pomodoro-buttons">
+          <button id="startBtn">Start</button>
+          <button id="resetBtn">Reset</button>
+        </div>
       </div>
     </div>
-
-    <div id="About" class="screen">
-      <h2> About </h2>
-      <p> Welcome to the G12 Learning Materials Organizer, a web-based platform developed as part of a high school research project! <br>
-      This website was created by student researchers to help organize, access, and share learning materials for Grade 12 subjects in a more intuitive and centralized way. <br>
-      Unlike traditional storage tools such as Google Drive or Classroom, this platform was designed specifically for students, featuring organized subject folders, community-uploaded notes, and features like integrated tests, AI-assisted learning, and a Pomodoro timer. <br>
-      If you have any questions, feedback, or suggestions for improvement, please feel free to reach out to the research team.</p>
-    </div>
-
-<!--  ----------------------------------------------------------------------------------------------  -->
-
-<hr>
-<div class="ai-helper" style="height: 400px;">
-  <h3>Ask our AI Tutor, Pingoo!</h3>
-
-  <!-- Where the bot will appear -->
-  <div id="bp-embedded-webchat" style="height: 400px;"></div>
-</div>
-
-<style>
-  iframe[src*="cdn.botpress.cloud"] {
-    height: 90vh !important;
-  }
-  .bpw-footer {
-    display: none !important;
-  }
-</style>
-
-<script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
-<script src="https://files.bpcontent.cloud/2025/10/31/08/20251031084004-C00BF78V.js" defer></script>
-<script src="javascript.js"></script>
+  </main>
+  <script src="javascript.js"></script>  
+</body>
 </html>

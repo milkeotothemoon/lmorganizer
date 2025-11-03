@@ -19,6 +19,10 @@ body {
   padding: 5px;
 }
 
+button {
+  font-family: 'Inter-Regular';
+}
+
 h1 {
   font-family: Inter-Medium;
   font-size: clamp(40px, 8vw, 50px);
@@ -102,7 +106,7 @@ h1 {
 
 #searchInput {
   width: 100%;
-  padding: 10px 10px 10px 15px; /* add right padding for icon space */
+  padding: 10px 10px 10px 15px;
   border-radius: 50px;
   border: 1px solid #aaa;
   font-size: 16px;
@@ -408,7 +412,7 @@ h1 {
 }
 
 .pomodoro {
-  position: fixed; /* ✅ stays put on screen */
+  position: fixed;
   bottom: 90px;
   right: 20px;
   background: white;
@@ -492,7 +496,7 @@ h1 {
 
 
 
-/* -------------------------------FIXED & MODERN DARK MODE------------------------------------------- */
+/* ------------------------------------------------------------------------------------------------- */
 
 .dark-mode {
   background: #0c0c0c;
@@ -624,6 +628,9 @@ h1 {
 .dark-mode * {
   transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
+
+
+
 /* --------------------------------------------------------------------------------------------------- */
 
 
@@ -718,7 +725,7 @@ h1 {
     right: 20px;
     top: auto;
     display: flex;
-    flex-direction: column-reverse; /* show menu above */
+    flex-direction: column-reverse;
     align-items: flex-end;
   }
 
@@ -736,7 +743,7 @@ h1 {
 
   .menu-options {
     position: absolute;
-    bottom: 70px; /* popup above the button */
+    bottom: 70px;
     top: auto;
     right: 0;
     width: max-content;

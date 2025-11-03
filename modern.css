@@ -1,0 +1,607 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+@font-face {
+  font-family: 'Inter-Medium';
+  src: url('https://gshpbwgfehncdlcomqbl.supabase.co/storage/v1/object/public/Storage/Inter-Medium.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter-Regular';
+  src: url('https://gshpbwgfehncdlcomqbl.supabase.co/storage/v1/object/public/Storage/Inter-Regular.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --accent: #04AA6D;
+  --bg-light: #f9fafb;
+  --bg-card: #ffffff;
+  --text-main: #111;
+  --radius: 14px;
+  --transition: 0.3s ease;
+}
+
+/* ===== Layout ===== */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-main);
+  background: var(--bg-light);
+  display: flex;
+  height: 100vh;
+  overflow-x: hidden;
+  transition: all 0.3s ease;
+}
+
+button {
+  font-family: 'Inter-Regular';
+}
+
+.sidebar {
+  background: white;
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid #e5e7eb;
+  padding: 1rem;
+  box-shadow: 4px 0 15px rgba(0,0,0,0.05);
+}
+
+.sidebar-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.project-title {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 0.4rem;
+}
+
+.sidebar-middle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.sidebar-middle button {
+  box-shadow: 4px 0 15px rgba(0,0,0,0.05);
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+}
+
+.subject-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.subject-list button {
+  background: #f3f4f6;
+  border: none;
+  border-radius: var(--radius);
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+}
+.subject-list button:hover, .subject-list button.active {
+  background: var(--accent);
+  color: white;
+}
+
+.sidebar-footer {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.sidebar-footer button {
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: 0.2s;
+}
+
+.sidebar-footer button:hover {
+  box-shadow: 0 6px 15px #9c9c9c;
+}
+
+.search-container {
+  position: relative;
+  width: 90%;
+  max-width: 400px;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 10px 10px 10px 15px;
+  border-radius: 50px;
+  border: 1px solid #aaa;
+  font-size: 16px;
+}
+
+.search-icon {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.search-icon:hover {
+  opacity: 1;
+}
+
+.uploadBar {
+  display: flex;
+  align-self: flex-end; 
+  justify-content: space-evenly; 
+  align-items: center; 
+  width: 65%;
+}
+
+.chooseButton {
+  background:#4a90e2;
+  color:#fff;
+  padding:8px 16px;
+  border-radius:6px;
+  cursor:pointer;
+  display:inline-block;
+  transition: 0.2s;
+}
+.chooseButton:hover { 
+  background:#357ab8; 
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.uploadButton {
+  color: white;
+  text-align: center;
+  background-color: #04AA6D;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.uploadButton:hover {
+  background-color: #058b5a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.content {
+  flex: 1;
+  padding: 1.5rem 2rem;
+  overflow-y: auto;
+}
+
+.topbar button {
+  font-size: 20px;
+  background: var(--accent);
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+}
+.menu-btn {
+  display:none;
+}
+
+/* ===== Cards ===== */
+.welcome-card, .ai-card, .upload-card, .lesson-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: var(--transition);
+}
+.welcome-card:hover, .lesson-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+.ai-card {
+  border-left: 5px solid var(--accent);
+}
+.lesson-card {
+  cursor: pointer;
+}
+.lesson-card h4 {
+  margin: 0;
+}
+.lesson-card {
+  margin-bottom: 12px;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.lesson-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.arrow {
+  font-size: 16px;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease;
+}
+
+.lesson-card.open.arrow {
+  transform: rotate(180deg);
+}
+
+.lesson-title span {
+  display: block;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.file-card {
+  display: inline-block;
+  margin: 0.5rem 0;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  background: #4a90e2;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.quizButton {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.quizButton:hover {
+  background: #03935f;
+  transform: translateY(-2px);
+}
+
+/* ===== Pomodoro ===== */
+.pomodoro {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  width: 220px;
+  padding: 1rem;
+}
+.hidden {
+  display: none;
+}
+.pomodoro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+.pomodoro-buttons button {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+
+/* ===== Dark Mode ===== */
+.dark-mode {
+  background: #111;
+  color: #eee;
+}
+.dark-mode .sidebar {
+  background: #181818;
+  border-right: 1px solid #333;
+}
+.dark-mode .subject-list button {
+  background: #222;
+  color: #eee;
+}
+.dark-mode .subject-list button:hover {
+  background: var(--accent);
+  color: white;
+}
+.dark-mode .content {
+  background: #121212;
+}
+.dark-mode .welcome-card,
+.dark-mode .ai-card,
+.dark-mode .lesson-card,
+.dark-mode .upload-card {
+  background: #1e1e1e;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.dark-mode .file-card {
+  background: #4a90e2;
+}
+
+* {
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+/* ===== Lesson toggle animations ===== */
+.sub-screen {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s ease;
+  padding-left: 1rem;
+}
+.sub-screen.active {
+  max-height: 500px; /* enough for content */
+}
+
+.theme-toggle {
+  position: relative;
+  width: 60px;
+  height: 30px;
+  background-color: #ccc;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.theme-toggle:hover {
+  box-shadow: 0 6px 15px #9c9c9c;
+}
+
+.theme-toggle.active {
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.4);
+}
+
+.theme-toggle .icon {
+  width: 18px;
+  height: 18px;
+  z-index: 2;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+
+.theme-toggle .sun-icon {
+  margin-left: 1px;
+}
+
+.theme-toggle .moon-icon {
+  margin-right: 1px;
+}
+
+.theme-toggle.active .sun-icon {
+  opacity: 0.3;
+}
+
+.theme-toggle.active .moon-icon {
+  opacity: 1;
+}
+
+.toggle-circle {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border-radius: 50%;
+  transition: left 0.3s ease;
+  z-index: 1;
+}
+
+.theme-toggle.active .toggle-circle {
+  background-color: #949494;
+  left: 33px;
+}
+
+.file-card {
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: 8px 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  color: white;
+  width: 70%;
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.08);
+}
+.file-card:hover { 
+  transform: scale(1.02); 
+}
+.file-title {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.file-name {
+  display: inline-block;
+  max-width: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle; 
+}
+.file-card.main-module {
+  width: 60%;
+  height: 10px;
+  font-size: 1.25rem;
+  padding: 20px 24px;
+  background: #d7f3ff;
+}
+.file-card.main-module .file-icon {
+  width: 48px;
+  height: 48px;
+}
+.file-card.uploaded {
+  width: 50%;
+  font-size: 0.9rem;
+  padding: 8px 12px;
+}
+.file-card.uploaded .file-icon {
+  width: 30px;
+  height: 30px;
+}
+.file-card.word {
+  background-color: #4a90e2;
+}
+.file-card.pdf {
+  background-color: #e74c3c;
+}
+.file-card.image {
+  background-color: #e7b101;
+}
+.file-card.youtube {
+  background-color: #be0202;
+}
+
+.pomodoro {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  width: 220px;
+  padding: 12px;
+  display: none;
+  z-index: 1000;
+  font-family: 'Inter-Regular', sans-serif;
+}
+
+.pomodoro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.pomodoro-header button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.pomodoro-body {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.pomodoro-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.pomodoro-buttons button {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.pomodoro-buttons button:hover {
+  background-color: #27ae60;
+}
+
+@media (max-width: 800px) {
+  /* Sidebar starts hidden */
+  .sidebar {
+    position: fixed;
+    width: 75%;
+    max-width: 280px;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    transform: translateX(-100%);
+    z-index: 1000;
+    transition: transform 0.3s ease;
+  }
+
+  /* When active, slide in */
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .uploadBar {
+    width: 100%;
+  }
+
+  /* Dim background when sidebar is open */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(2px);
+    z-index: 999;
+    display: none;
+  }
+  .overlay.show {
+    display: block;
+  }
+
+  /* Content adjusts */
+  .content {
+    margin-left: 0;
+    padding: 1.2rem;
+  }
+
+  /* Hamburger button */
+  .menu-btn {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+
+  .file-card.uploaded{
+    width: 75%;
+  }
+}
