@@ -36,8 +36,10 @@ function goTo(screenId) {
   const buttons = document.querySelectorAll('.subject-list button');
   buttons.forEach(btn => btn.classList.remove('active'));
   const activeBtn = document.querySelector(`.subject-list button[onclick="goTo('${screenId}')"]`);
-  if (activeBtn) activeBtn.classList.add('active');
-  
+  if (activeBtn) {
+    activeBtn.classList.add('active');
+  };
+
   const aiCard = document.querySelector('.ai-card');
   if (aiCard) {
     const hideOn = ['Settings', 'About', 'Welcome']; // add 'Welcome' too if you use a separate id

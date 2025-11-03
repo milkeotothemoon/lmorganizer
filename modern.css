@@ -217,10 +217,54 @@ button {
   margin-bottom: 1rem;
   transition: var(--transition);
 }
-.welcome-card:hover, .lesson-card:hover {
+.lesson-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 16px rgba(0,0,0,0.1);
 }
+.welcome-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 2rem 1rem;
+}
+
+.welcome-card.subject {
+  background: var(--bg-card);
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  width: 20%;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.welcome-card.subject img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.welcome-card.subject .card-text {
+  background: white;
+  color: #333;
+  text-align: center;
+  font-weight: bolder;
+  padding: 0.75rem;
+  height: 50px; /* fixed height area */
+  display: flex;
+  align-items: center;   /* vertical center */
+  justify-content: center; /* horizontal center */
+  text-wrap: balance;
+}
+
+.welcome-card.subject:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
 .ai-card {
   border-left: 5px solid var(--accent);
 }
@@ -603,5 +647,9 @@ button {
 
   .file-card.uploaded{
     width: 75%;
+  }
+
+  .welcome-card.subject {
+    width: 45%;
   }
 }
