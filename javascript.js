@@ -1,99 +1,3 @@
-const menuButton = document.getElementById('menuButton');
-const sidebar = document.querySelector('.sidebar');
-
-// Create overlay
-const overlay = document.createElement('div');
-overlay.classList.add('overlay');
-document.body.appendChild(overlay);
-
-// Toggle sidebar
-menuButton.addEventListener('click', () => {
-  sidebar.classList.toggle('active');
-  overlay.classList.toggle('show');
-});
-
-// Close sidebar when clicking outside
-overlay.addEventListener('click', () => {
-  sidebar.classList.remove('active');
-  overlay.classList.remove('show');
-});
-
-function goTo(screenId) {
-  // Hide welcome screen after first subject click
-  const welcome = document.getElementById('Welcome');
-  if (welcome) welcome.style.display = 'none';
-
-  // Hide all screens first
-  document.querySelectorAll('.screen').forEach(screen => {
-    screen.style.display = 'none';
-  });
-
-  // Show the selected subject
-  const target = document.getElementById(screenId);
-  if (target) target.style.display = 'block';
-
-  // Update active state for buttons (optional)
-  const buttons = document.querySelectorAll('.subject-list button');
-  buttons.forEach(btn => btn.classList.remove('active'));
-  const activeBtn = document.querySelector(`.subject-list button[onclick="goTo('${screenId}')"]`);
-  if (activeBtn) {
-    activeBtn.classList.add('active');
-  };
-
-  const aiCard = document.querySelector('.ai-card');
-  if (aiCard) {
-    const hideOn = ['Settings', 'About', 'Welcome']; // add 'Welcome' too if you use a separate id
-    if (hideOn.includes(screenId)) {
-      aiCard.style.display = 'none';
-    } else {
-      aiCard.style.display = 'block';
-    }
-  }
-}
-
-// Expand/collapse lessons
-function toggleLesson(id, card) {
-  const content = document.getElementById(id);
-
-  // Check if it's already open
-  if (content.classList.contains("active")) {
-    // Closing animation
-    content.style.maxHeight = content.scrollHeight + "px";
-    requestAnimationFrame(() => {
-      content.style.maxHeight = "0";
-    });
-
-    content.classList.remove("active");
-    card.classList.remove("open");
-  } else {
-    // Opening animation
-    content.classList.add("active");
-    card.classList.add("open");
-
-    // setTimeout ensures DOM update before measuring height
-    setTimeout(() => {
-      content.style.maxHeight = content.scrollHeight + "px";
-    }, 1);
-  }
-}
-
-let timer;
-let isRunning = false;
-let timeLeft = 25 * 60;
-let isWorkTime = true;
-
-function openPomodoro() {
-  document.getElementById('pomodoro').style.display = 'block';
-}
-
-function updateDisplay() {
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
-  document.getElementById('timerDisplay').textContent =
-    `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-}
-
-// ✅ combine all DOMContentLoaded logic into one
 window.addEventListener("DOMContentLoaded", () => {
   const pomodoro = document.getElementById('pomodoro');
   const startBtn = document.getElementById('startBtn');
@@ -104,15 +8,12 @@ window.addEventListener("DOMContentLoaded", () => {
   
   document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
 
-  // Show welcome first
   const welcome = document.getElementById('Welcome');
   if (welcome) welcome.style.display = 'block';
 
-  // Hide AI tutor on welcome
   const aiCard = document.querySelector('.ai-card');
   if (aiCard) aiCard.style.display = 'none';
 
-  // --- dark mode ---
   if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("dark-mode");
     if (toggleSwitch) toggleSwitch.classList.add("active");
@@ -131,7 +32,6 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- pomodoro ---
   if (closePomodoro) {
     closePomodoro.addEventListener('click', () => {
       pomodoro.style.display = 'none';
@@ -188,21 +88,105 @@ window.addEventListener("DOMContentLoaded", () => {
   updateDisplay();
 });
 
-// ✅ Import Supabase client FIRST
 
-// 🔑 Supabase credentials
+
+const menuButton = document.getElementById('menuButton');
+const sidebar = document.querySelector('.sidebar');
+
+const overlay = document.createElement('div');
+overlay.classList.add('overlay');
+document.body.appendChild(overlay);
+
+menuButton.addEventListener('click', () => {
+  sidebar.classList.toggle('active');
+  overlay.classList.toggle('show');
+});
+
+overlay.addEventListener('click', () => {
+  sidebar.classList.remove('active');
+  overlay.classList.remove('show');
+});
+
+function goTo(screenId) {
+  const welcome = document.getElementById('Welcome');
+  if (welcome) welcome.style.display = 'none';
+
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.style.display = 'none';
+  });
+
+  const target = document.getElementById(screenId);
+  if (target) target.style.display = 'block';
+
+  const buttons = document.querySelectorAll('.subject-list button');
+  buttons.forEach(btn => btn.classList.remove('active'));
+  const activeBtn = document.querySelector(`.subject-list button[onclick="goTo('${screenId}')"]`);
+  if (activeBtn) {
+    activeBtn.classList.add('active');
+  };
+
+  const aiCard = document.querySelector('.ai-card');
+  if (aiCard) {
+    const hideOn = ['Settings', 'About', 'Welcome'];
+    if (hideOn.includes(screenId)) {
+      aiCard.style.display = 'none';
+    } else {
+      aiCard.style.display = 'block';
+    }
+  }
+}
+
+
+
+function toggleLesson(id, card) {
+  const content = document.getElementById(id);
+
+  if (content.classList.contains("active")) {
+    content.style.maxHeight = content.scrollHeight + "px";
+    requestAnimationFrame(() => {
+      content.style.maxHeight = "0";
+    });
+
+    content.classList.remove("active");
+    card.classList.remove("open");
+  } else {
+    content.classList.add("active");
+    card.classList.add("open");
+
+    setTimeout(() => {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }, 1);
+  }
+}
+
+
+
+let timer;
+let isRunning = false;
+let timeLeft = 25 * 60;
+let isWorkTime = true;
+
+function openPomodoro() {
+  document.getElementById('pomodoro').style.display = 'block';
+}
+
+function updateDisplay() {
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+  document.getElementById('timerDisplay').textContent =
+    `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+
+
 const supabaseUrl = "https://gshpbwgfehncdlcomqbl.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdzaHBid2dmZWhuY2RsY29tcWJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5MTA5NjgsImV4cCI6MjA3MjQ4Njk2OH0.hFF9rFyDtqBs-nxceNbu1sSUxSPgSlMdejkjszBK_jg";
 
-// ✅ Use one consistent Supabase client
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey, {
   auth: { persistSession: false },
   global: { fetch: (url, options) => fetch(url, { ...options, credentials: 'omit' }) }
 });
 
-// =====================================================
-// FILE UPLOAD SECTION
-// =====================================================
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('input[type="file"][id^="fileInput-"]').forEach(input => {
     const subject = input.id.replace('fileInput-', '');
@@ -278,23 +262,18 @@ async function loadFiles(subject) {
   });
 }
 
-// Load your subjects
 loadFiles("Contemp");
 loadFiles("MIL");
 loadFiles("Philo");
 loadFiles("PE");
 
-// =====================================================
-// RESPONDENT TRACKER SECTION
-// =====================================================
 
-// Generate unique ID for this respondent
+
 let startTime = Date.now();
 const page = window.location.pathname;
 const device = /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : "desktop";
 const respondentId = crypto.randomUUID();
 
-// Track when tab is hidden or closed
 document.addEventListener("visibilitychange", async () => {
   if (document.visibilityState === "hidden") {
     const duration = Math.round((Date.now() - startTime) / 1000);

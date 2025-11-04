@@ -23,7 +23,6 @@
   --transition: 0.3s ease;
 }
 
-/* ===== Layout ===== */
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
@@ -151,7 +150,8 @@ button {
 .uploadBar {
   display: flex;
   align-self: flex-end; 
-  justify-content: space-evenly; 
+  justify-content: flex-start;
+  gap: 20%; 
   align-items: center; 
   width: 65%;
 }
@@ -208,7 +208,6 @@ button {
   display:none;
 }
 
-/* ===== Cards ===== */
 .welcome-card, .ai-card, .upload-card, .lesson-card {
   background: var(--bg-card);
   border-radius: var(--radius);
@@ -253,10 +252,10 @@ button {
   text-align: center;
   font-weight: bolder;
   padding: 0.75rem;
-  height: 50px; /* fixed height area */
+  height: 50px;
   display: flex;
-  align-items: center;   /* vertical center */
-  justify-content: center; /* horizontal center */
+  align-items: center;
+  justify-content: center;
   text-wrap: balance;
 }
 
@@ -332,71 +331,6 @@ button {
   transform: translateY(-2px);
 }
 
-/* ===== Pomodoro ===== */
-.pomodoro {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: var(--bg-card);
-  border-radius: var(--radius);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  width: 220px;
-  padding: 1rem;
-}
-.hidden {
-  display: none;
-}
-.pomodoro-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #ddd;
-}
-.pomodoro-buttons button {
-  background: var(--accent);
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: var(--radius);
-  margin-top: 0.5rem;
-  cursor: pointer;
-}
-
-/* ===== Dark Mode ===== */
-.dark-mode {
-  background: #111;
-  color: #eee;
-}
-.dark-mode .sidebar {
-  background: #181818;
-  border-right: 1px solid #333;
-}
-.dark-mode .subject-list button {
-  background: #222;
-  color: #eee;
-}
-.dark-mode .subject-list button:hover {
-  background: var(--accent);
-  color: white;
-}
-.dark-mode .content {
-  background: #121212;
-}
-.dark-mode .welcome-card,
-.dark-mode .ai-card,
-.dark-mode .lesson-card,
-.dark-mode .upload-card {
-  background: #1e1e1e;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
-.dark-mode .file-card {
-  background: #4a90e2;
-}
-
-* {
-  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-}
-/* ===== Lesson toggle animations ===== */
 .sub-screen {
   overflow: hidden;
   max-height: 0;
@@ -404,7 +338,7 @@ button {
   padding-left: 1rem;
 }
 .sub-screen.active {
-  max-height: 500px; /* enough for content */
+  max-height: 500px;
 }
 
 .theme-toggle {
@@ -591,8 +525,49 @@ button {
   background-color: #27ae60;
 }
 
+/*--------------------------------------------------------------------------------------------------*/
+
+.dark-mode {
+  background: #111;
+  color: #eee;
+}
+.dark-mode .sidebar {
+  background: #181818;
+  border-right: 1px solid #333;
+}
+.dark-mode .subject-list button {
+  background: #222;
+  color: #eee;
+}
+.dark-mode .subject-list button:hover {
+  background: var(--accent);
+  color: white;
+}
+.dark-mode .content {
+  background: #121212;
+}
+.dark-mode .welcome-card,
+.dark-mode .ai-card,
+.dark-mode .lesson-card,
+.dark-mode .upload-card {
+  background: #1e1e1e;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.dark-mode .pomodoro {
+  background: #181818;
+  color: #f2f2f2;
+  border: 1px solid #333;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+}
+
+* {
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/*--------------------------------------------------------------------------------------------------*/
+
 @media (max-width: 800px) {
-  /* Sidebar starts hidden */
   .sidebar {
     position: fixed;
     width: 75%;
@@ -605,16 +580,16 @@ button {
     transition: transform 0.3s ease;
   }
 
-  /* When active, slide in */
   .sidebar.active {
     transform: translateX(0);
   }
 
   .uploadBar {
     width: 100%;
+    justify-content: space-between;
+    gap: 0px;
   }
 
-  /* Dim background when sidebar is open */
   .overlay {
     position: fixed;
     top: 0;
@@ -630,19 +605,18 @@ button {
     display: block;
   }
 
-  /* Content adjusts */
   .content {
     margin-left: 0;
     padding: 1.2rem;
   }
 
-  /* Hamburger button */
   .menu-btn {
     display: block;
     background: none;
     border: none;
     font-size: 1.8rem;
     cursor: pointer;
+    padding: 0;
   }
 
   .file-card.uploaded{
