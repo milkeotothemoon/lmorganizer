@@ -179,6 +179,74 @@ function updateDisplay() {
 
 
 
+function filterLessons() {
+  const query = document.getElementById('searchInput').value.toLowerCase().trim();
+  const allLessons = document.querySelectorAll('.lesson-card');
+  const resultContainer = document.getElementById('searchResultsContainer');
+  const noResults = document.getElementById('noResults');
+  const aiCard = document.querySelector('.ai-card');
+  const searchScreen = document.getElementById('SearchResults');
+
+  if (!query) {
+    searchScreen.style.display = 'none';
+    if (aiCard) aiCard.style.display = 'block';
+    goTo('Welcome');
+    return;
+  }
+
+  document.querySelectorAll('.screen').forEach(screen => {
+    if (screen.id !== 'SearchResults') screen.style.display = 'none';
+  });
+  searchScreen.style.display = 'block';
+  if (aiCard) aiCard.style.display = 'none';
+
+  resultContainer.innerHTML = '';
+  let found = false;
+
+  const added = new Set();
+
+  allLessons.forEach(card => {
+    const title = card.textContent.toLowerCase();
+    const keywords = card.getAttribute('data-keywords')?.toLowerCase() || '';
+
+    if (title.includes(query) || keywords.includes(query)) {
+      const parentScreen = card.closest('.screen');
+      if (!parentScreen) return;
+
+      const lessonIdMatch = card.getAttribute('onclick')?.match(/'(.*?)'/);
+      const lessonId = lessonIdMatch ? lessonIdMatch[1] : '';
+
+      const uniqueKey = `${parentScreen.id}-${lessonId}`;
+      if (added.has(uniqueKey)) return;
+      added.add(uniqueKey);
+
+      const resultCard = card.cloneNode(true);
+      resultCard.classList.add('search-result');
+      resultCard.onclick = () => {
+        goTo(parentScreen.id);
+        setTimeout(() => toggleLesson(lessonId, card), 200);
+      };
+
+      const label = document.createElement('p');
+      label.textContent = `Subject: ${parentScreen.querySelector('h1, h2')?.textContent || parentScreen.id}`;
+      label.style.fontSize = '14px';
+      label.style.color = '#555';
+      label.style.margin = '4px 0 0 10px';
+
+      const wrapper = document.createElement('div');
+      wrapper.appendChild(resultCard);
+      wrapper.appendChild(label);
+
+      resultContainer.appendChild(wrapper);
+      found = true;
+    }
+  });
+
+  noResults.style.display = found ? 'none' : 'block';
+}
+
+
+
 const supabaseUrl = "https://gshpbwgfehncdlcomqbl.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdzaHBid2dmZWhuY2RsY29tcWJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5MTA5NjgsImV4cCI6MjA3MjQ4Njk2OH0.hFF9rFyDtqBs-nxceNbu1sSUxSPgSlMdejkjszBK_jg";
 

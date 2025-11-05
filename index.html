@@ -44,7 +44,7 @@
     </aside>
 
     <main class="content">
-      <div class="topbar">
+      <div class="topbar" style="text-align: center;">
         <button id="menuButton" class="menu-btn">☰</button>
         <h1 style="font-family: Inter Medium; font-size: 40px;">G12 Learning Materials Organizer</h1>
       </div>
@@ -61,7 +61,7 @@
         <div class="welcome-group">
           <div class="welcome-card subject" onclick="goTo('Contemp')">
             <img src="contemp.jpg" alt="Contemporary Art">
-            <div class="card-text">Contemporary Art</div>
+            <div class="card-text">Contemporary Arts of the Philippine Region</div>
           </div>
           <div class="welcome-card subject" onclick="goTo('MIL')">
             <img src="mil.jpg" alt="Media and Information Literacy">
@@ -69,11 +69,11 @@
           </div>
           <div class="welcome-card subject" onclick="goTo('PE')">
             <img src="philo.jpg" alt="Philosophy">
-            <div class="card-text">Philosophy</div>
+            <div class="card-text">The Philosophy of the Human Person</div>
           </div>
           <div class="welcome-card subject" onclick="goTo('Philo')">
             <img src="pe.jpg" alt="Physical Education">
-            <div class="card-text">Physical Education</div>
+            <div class="card-text">Health Optimized Physical Education</div>
           </div>
         </div>
     </section>
@@ -110,10 +110,18 @@
               <span class="file-title">Contemp Module 1-2</span>
               <img src="msword.png" class="file-icon" alt="Word icon">
             </a>
+            <a href="Contempo/Local Materials.pdf" class="file-card main-module pdf" target="_blank">
+              <span class="file-title">Contemp Module 1-2</span>
+              <img src="pdficon.svg" class="file-icon" alt="PDF icon">
+            </a>
+            <a href="Contempo/Local Materials Used in Creating Art.pptx" class="file-card main-module ppt" target="_blank">
+              <span class="file-title">Local Materials Used in Creating Art</span>
+              <img src="powerpointicon.png" class="file-icon" alt="Powerpoint icon">
+            </a>
             <button class="quizButton" onclick="location.href='Tests/ContempQuiz1.html'" type="button"> Take the Test! </button>
           </div>
 
-          <div class="lesson-card" onclick="toggleLesson('contemp2', this)">
+          <div class="lesson-card" onclick="toggleLesson('contemp2', this)" data-keywords="contemporary art medium local recycle">
             Lesson 3-4: Contemporary Art
             <span class="arrow">▼</span>
           </div>
@@ -125,7 +133,7 @@
             <button class="quizButton" onclick="location.href='Tests/ContempQuiz2.html'" type="button"> Take the Test! </button>
           </div>
 
-          <div class="lesson-card" onclick="toggleLesson('contemp3', this)">
+          <div class="lesson-card" onclick="toggleLesson('contemp3', this)" data-keywords="contemporary art medium decalcomania decoupage frottage found objects cubism">
             <div class="lesson-title">
               <span>Lesson 5: Conceptualize Contemporary Art Based on Techniques and Performance Practices</span>
               <span>Lesson 6: Artistic Skills and Techniques</span>
@@ -140,7 +148,7 @@
             <button class="quizButton" onclick="location.href='Tests/ContempQuiz3.html'" type="button"> Take the Test! </button>
           </div>
 
-          <div class="lesson-card" onclick="toggleLesson('contemp4', this)">
+          <div class="lesson-card" onclick="toggleLesson('contemp4', this)" data-keywords="contemporary art creating individual unique">
             <div class="lesson-title">
               <span>Lesson 7: Incorporate Contemporary Characteristics to One's Creation</span>
               <span>Lesson 8: Creation of Final Product</span>
@@ -178,7 +186,7 @@
         </div>
 
         <div class="lesson-grid">
-          <div class="lesson-card" onclick="toggleLesson('mil1', this)">
+          <div class="lesson-card" onclick="toggleLesson('mil1', this)" data-keywords="mil weakness cybercrime economy education society citizen">
             <span>Lesson 1: Opportunities, Challenges, and Power of Media and Information</span>
             <span class="arrow">▼</span>
           </div>
@@ -189,7 +197,7 @@
             </a>
           </div>
 
-          <div class="lesson-card" onclick="toggleLesson('mil2', this)">
+          <div class="lesson-card" onclick="toggleLesson('mil2', this)" data-keywords="mil mooc wearable education hearable environment ubiquitous paperless">
             <span>Lesson 2: Current and Future Trends of Media and Information</span>
             <span class="arrow">▼</span>
           </div>
@@ -200,7 +208,7 @@
             </a>
           </div>
 
-          <div class="lesson-card" onclick="toggleLesson('mil3', this)">
+          <div class="lesson-card" onclick="toggleLesson('mil3', this)" data-keywords="mil social media business communication">
             <span>Lesson 3: Media and Information Literate Individual</span>
             <span class="arrow">▼</span>
           </div>
@@ -211,7 +219,7 @@
             </a>
           </div>
 
-          <div class="lesson-card" onclick="toggleLesson('mil4', this)">
+          <div class="lesson-card" onclick="toggleLesson('mil4', this)" data-keywords="mil typeface font serif designjpeg png mp4 tiff principle element arrangement">
             <span>Lesson 4: Text Information and Visual Media</span>
             <span class="arrow">▼</span>
           </div>
@@ -222,7 +230,7 @@
             </a>
           </div>
 
-          <div class="lesson-card" onclick="toggleLesson('mil5', this)">
+          <div class="lesson-card" onclick="toggleLesson('mil5', this)" data-keywords="mil listening hearing sound waves stereo informal formal camera shot angle script storyboard">
             <span>Lesson 5: Audio Information and Motion Media</span>
             <span class="arrow">▼</span>
           </div>
@@ -233,7 +241,7 @@
             </a>
           </div>
 
-          <div class="lesson-card" onclick="toggleLesson('mil6', this)">
+          <div class="lesson-card" onclick="toggleLesson('mil6', this)" data-keywords="mil content video games tv rpg mmorpg online class social media">
             <span>Lesson 6: Manipulative and Interactive Media</span>
             <span class="arrow">▼</span>
           </div>
@@ -267,7 +275,7 @@
         </div>
 
         <div class="lesson-grid">
-          <div class="lesson-card" onclick="toggleLesson('philo1', this)">
+          <div class="lesson-card" onclick="toggleLesson('philo1', this)" data-keywords="philosophy physical psychological moral voluntary">
             <span>Lesson 1: The Freedom of The Human Person</span>
             <span class="arrow">▼</span>
           </div>
@@ -278,7 +286,7 @@
             </a>
           </div>
 
-          <div class="lesson-card" onclick="toggleLesson('philo2', this)">
+          <div class="lesson-card" onclick="toggleLesson('philo2', this)" data-keywords="philosophy social beings parable confucius karol martin society">
             <span>Lesson 2: Intersubjectivity</span>
             <span class="arrow">▼</span>
           </div>
@@ -289,7 +297,7 @@
             </a>
           </div>
 
-          <div class="lesson-card" onclick="toggleLesson('philo3', this)">
+          <div class="lesson-card" onclick="toggleLesson('philo3', this)" data-keywords="philosophy society noble fuedal hunting agriculture post-industrial industrial">
             <span>Lesson 3: The Human Person in the Society</span>
             <span class="arrow">▼</span>
           </div>
@@ -300,7 +308,7 @@
             </a>
           </div>
 
-          <div class="lesson-card" onclick="toggleLesson('philo4', this)">
+          <div class="lesson-card" onclick="toggleLesson('philo4', this)" data-keywords="philosophy environment sustainable aesthetics anamaxinder pythagoras immanuel herbert george ecology prudence frugality">
             <span>Lesson 4: The Human Person in the Environment</span>
             <span class="arrow">▼</span>
           </div>
@@ -351,12 +359,27 @@
               <img src="youtubeicon.png" class="file-icon" alt="Youtube Icon"> 
             </a>
           </div>
+
+          <div class="lesson-card" onclick="toggleLesson('pe2', this)">
+            <span>Lesson 2: Proper Etiquette and Safety in the use of Facilities and Equipment</span>
+            <span class="arrow">▼</span>
+          </div>
+          <div id="pe2" class="sub-screen"> 
+            <a href="PE/PE Module 2.pdf" class="file-card main-module pdf" target="_blank">
+              <span class="file-title">PE 3</span>
+              <img src="pdficon.svg" class="file-icon" alt="Word icon">
+            </a>
+            <a href="https://youtu.be/LalEf5b2cOI?si=MApmJjclUaPSLxhP" class="file-card main-module youtube" target="_blank">
+              <span class="file-title"> Nature of Dance </span>
+              <img src="youtubeicon.png" class="file-icon" alt="Youtube Icon"> 
+            </a>
+          </div>
         </div>
       </section>
 
       <!-- ------------------------------------------------------------------------------------- -->
       
-      <section id="About" class="screen">
+      <section id="About" class="screen" style="text-align: justify;">
         <p> 
           <h3> About the Website </h3>
           The G12 Learning Materials Organizer is a web-based platform developed as part of a high school research project. It was designed to help students easily access, organize, and upload study materials for Grade 12 subjects in a single, intuitive interface.
@@ -369,22 +392,35 @@
           <h3> Researchers: </h3>
           Alleya Anto <br> Gia Digal <br> Emmily Digao <br> Marq Gahit <br> Arianne Vitor
           <hr>
-          <h3> Acknowledgment / Contact </h3>
+          <h3> Acknowledgment & Contact </h3>
           For questions, feedback, or technical concerns related to the website, please contact marqmarqgahit@gmail.com.
           <br>
           We extend our gratitude to our teachers and classmates who contributed notes and feedback that helped improve this project.
           <hr>
-          Image References: <br>
+          <h3> Image References: </h3> 
+          https://en.wikipedia.org/wiki/Spoliarium <br>
           https://blog.pressreader.com/libraries-institutions/media-literacy-more-important-than-ever <br>
           https://classicalconversations.com/blog/why-study-philosophy/ <br>
           https://stock.adobe.com/search?k=sports+physical
+          <br> <br>
+          <i>All materials, including text, documents, images, and media, remain the property of their respective creators. This website is developed solely for educational and research purposes. No copyright infringement is intended.</i>
         </p>
       </section>
 
-        <div class="ai-card">
-          <h3>Ask Pingoo 🐧</h3>
-          <div id="bp-embedded-webchat" style="height: 400px;"></div>
-        </div>
+      <!-- ------------------------------------------------------------------------------------- -->
+
+      <div class="screen" id="SearchResults">
+        <h2>Search Results</h2>
+        <div id="searchResultsContainer"></div>
+        <p id="noResults" style="display:none; color:gray; text-align:center; margin-top:20px;">
+          No lessons found.
+        </p>
+      </div>
+
+      <div class="ai-card">
+        <h3>Ask Pingoo </h3>
+        <div id="bp-embedded-webchat" style="height: 400px;"></div>
+      </div>
 
       <div id="pomodoro" class="pomodoro">
         <div class="pomodoro-header">
