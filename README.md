@@ -6,8 +6,4 @@ Features:
 - Search bar
 - Pomodoro Timer (Pingoodoro)
 
-To be added:
-- Lesson Randomizer
-- Credits
-
 <sub> Manifesting this goes well... </sub>
