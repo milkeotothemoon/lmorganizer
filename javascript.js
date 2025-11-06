@@ -307,13 +307,16 @@ async function loadFiles(subject) {
 
     if (ext === "pdf") {
       typeClass = "pdf";
-      icon = "pdficon.svg";
-    } else if (["jpg", "jpeg", "png"].includes(ext)) {
+      icon = "pdfIcon.svg";
+    } else if (["jpg", "jpeg", "png", "mp4"].includes(ext)) {
       typeClass = "image";
-      icon = "jpgicon.png";
+      icon = "jpgIcon.png";
+    } else if (["ppt", "pptx"].includes(ext)) {
+      typeClass = "ppt";
+      icon = "pptIcon.png";
     } else {
       typeClass = "word";
-      icon = "msword.png";
+      icon = "wordIcon.png";
     }
 
     const card = document.createElement("div");

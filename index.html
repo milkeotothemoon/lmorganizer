@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>G12 Learning Materials Organizer</title>
-    <link rel="stylesheet" href="modern.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="icon.ico" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   </head>
@@ -21,7 +21,7 @@
       <div class="sidebar-middle">
         <div class="search-container">
           <input type="text" id="searchInput" placeholder="Search lessons here" onkeyup="filterLessons()">
-          <img src="search_icon.png" class="search-icon" alt="Search">
+          <img src="searchIcon.png" class="search-icon" alt="Search">
         </div>
 
         <nav class="subject-list">
@@ -108,15 +108,19 @@
           <div id="contemp1" class="sub-screen"> 
             <a href="Contempo/Contemp Module 1-2.docx" class="file-card main-module word" target="_blank">
               <span class="file-title">Contemp Module 1-2</span>
-              <img src="msword.png" class="file-icon" alt="Word icon">
+              <img src="wordIcon.png" class="file-icon" alt="Word icon">
             </a>
             <a href="Contempo/Local Materials.pdf" class="file-card main-module pdf" target="_blank">
               <span class="file-title">Contemp Module 1-2</span>
-              <img src="pdficon.svg" class="file-icon" alt="PDF icon">
+              <img src="pdfIcon.svg" class="file-icon" alt="PDF icon">
+            </a>
+            <a href="https://www.youtube.com/watch?v=zqiV17mBz6I&pp=ygVBdGVjaG5pcXVlcyBhbmQgcGVyZm9ybWFuY2UgcHJhY3RpY2VzIGFwcGxpZWQgdG8gY29udGVtcG9yYXJ5IGFydHM%3D" class="file-card main-module youtube" target="_blank">
+              <span class="file-title">Techniques and Performance Practices Week 1</span>
+              <img src="youtubeIcon.png" class="file-icon" alt="Word icon">
             </a>
             <a href="Contempo/Local Materials Used in Creating Art.pptx" class="file-card main-module ppt" target="_blank">
               <span class="file-title">Local Materials Used in Creating Art</span>
-              <img src="powerpointicon.png" class="file-icon" alt="Powerpoint icon">
+              <img src="pptIcon.png" class="file-icon" alt="Powerpoint icon">
             </a>
             <button class="quizButton" onclick="location.href='Tests/ContempQuiz1.html'" type="button"> Take the Test! </button>
           </div>
@@ -128,7 +132,7 @@
           <div id="contemp2" class="sub-screen"> 
             <a href="Contempo/Contemp Module 3-4.docx" class="file-card main-module word" target="_blank">
               <span class="file-title">Contemp Module 3-4</span>
-              <img src="msword.png" class="file-icon" alt="Word icon">
+              <img src="wordIcon.png" class="file-icon" alt="Word icon">
             </a>
             <button class="quizButton" onclick="location.href='Tests/ContempQuiz2.html'" type="button"> Take the Test! </button>
           </div>
@@ -143,7 +147,7 @@
           <div id="contemp3" class="sub-screen"> 
             <a href="Contempo/Contemp Module 5-6.docx" class="file-card main-module word" target="_blank">
               <span class="file-title">Contemp Module 5-6</span>
-              <img src="msword.png" class="file-icon" alt="Word icon">
+              <img src="wordIcon.png" class="file-icon" alt="Word icon">
             </a>
             <button class="quizButton" onclick="location.href='Tests/ContempQuiz3.html'" type="button"> Take the Test! </button>
           </div>
@@ -158,7 +162,7 @@
           <div id="contemp4" class="sub-screen"> 
             <a href="Contempo/Contemp Module 7-8.docx" class="file-card main-module word" target="_blank">
               <span class="file-title">Contemp Module 7-8</span>
-              <img src="msword.png" class="file-icon" alt="Word icon">
+              <img src="wordIcon.png" class="file-icon" alt="Word icon">
             </a>
             <button class="quizButton" onclick="location.href='Tests/ContempQuiz4.html'" type="button"> Take the Test! </button>
           </div>
@@ -193,7 +197,7 @@
           <div id="mil1" class="sub-screen"> 
             <a href="MIL/MIL Module 1.docx" class="file-card main-module word" target="_blank">
               <span class="file-title">MIL Module 1</span>
-              <img src="msword.png" class="file-icon" alt="Word icon">
+              <img src="wordIcon.png" class="file-icon" alt="Word icon">
             </a>
           </div>
 
@@ -204,7 +208,7 @@
           <div id="mil2" class="sub-screen"> 
             <a href="MIL/MIL Module 2.docx" class="file-card main-module word" target="_blank">
               <span class="file-title">MIL Module 2</span>
-              <img src="msword.png" class="file-icon" alt="Word icon">
+              <img src="wordIcon.png" class="file-icon" alt="Word icon">
             </a>
           </div>
 
@@ -215,7 +219,7 @@
           <div id="mil3" class="sub-screen"> 
             <a href="MIL/MIL Module 3.docx" class="file-card main-module word" target="_blank">
               <span class="file-title">MIL Module 3</span>
-              <img src="msword.png" class="file-icon" alt="Word icon">
+              <img src="wordIcon.png" class="file-icon" alt="Word icon">
             </a>
           </div>
 
@@ -226,7 +230,7 @@
           <div id="mil4" class="sub-screen"> 
             <a href="MIL/MIL Module 4.pdf" class="file-card main-module pdf" target="_blank">
               <span class="file-title">MIL Module 4</span>
-              <img src="pdficon.svg" class="file-icon" alt="Word icon">
+              <img src="pdfIcon.svg" class="file-icon" alt="Word icon">
             </a>
           </div>
 
@@ -237,7 +241,7 @@
           <div id="mil5" class="sub-screen"> 
             <a href="MIL/MIL Module 5.pdf" class="file-card main-module pdf" target="_blank">
               <span class="file-title">MIL Module 5</span>
-              <img src="pdficon.svg" class="file-icon" alt="Word icon">
+              <img src="pdfIcon.svg" class="file-icon" alt="Word icon">
             </a>
           </div>
 
@@ -248,7 +252,7 @@
           <div id="mil6" class="sub-screen"> 
             <a href="MIL/MIL Module 6.pdf" class="file-card main-module pdf" target="_blank">
               <span class="file-title">MIL Module 6</span>
-              <img src="pdficon.svg" class="file-icon" alt="Word icon">
+              <img src="pdfIcon.svg" class="file-icon" alt="Word icon">
             </a>
           </div>
         </div>
@@ -282,7 +286,7 @@
           <div id="philo1" class="sub-screen"> 
             <a href="Philo/Philo Module 1.pdf" class="file-card main-module pdf" target="_blank">
               <span class="file-title">Philo Module 1</span>
-              <img src="pdficon.svg" class="file-icon" alt="Word icon">
+              <img src="pdfIcon.svg" class="file-icon" alt="Word icon">
             </a>
           </div>
 
@@ -293,7 +297,7 @@
           <div id="philo2" class="sub-screen"> 
             <a href="Philo/Philo Module 2.pdf" class="file-card main-module pdf" target="_blank">
               <span class="file-title">Philo Module 2</span>
-              <img src="pdficon.svg" class="file-icon" alt="Word icon">
+              <img src="pdfIcon.svg" class="file-icon" alt="Word icon">
             </a>
           </div>
 
@@ -304,7 +308,7 @@
           <div id="philo3" class="sub-screen"> 
             <a href="Philo/Philo Module 3.pdf" class="file-card main-module pdf" target="_blank">
               <span class="file-title">Philo Module 3</span>
-              <img src="pdficon.svg" class="file-icon" alt="Word icon">
+              <img src="pdfIcon.svg" class="file-icon" alt="Word icon">
             </a>
           </div>
 
@@ -315,7 +319,7 @@
           <div id="philo4" class="sub-screen"> 
             <a href="Philo/Philo Module 4.pdf" class="file-card main-module pdf" target="_blank">
               <span class="file-title">Philo Module 4</span>
-              <img src="pdficon.svg" class="file-icon" alt="Word icon">
+              <img src="pdfIcon.svg" class="file-icon" alt="Word icon">
             </a>
             <button class="quizButton" onclick="location.href='Tests/PhiloQuiz1.html'" type="button"> Take the Test! </button>
           </div>
@@ -352,11 +356,11 @@
           <div id="pe1" class="sub-screen"> 
             <a href="PE/PE Module 1.pdf" class="file-card main-module pdf" target="_blank">
               <span class="file-title">PE 3</span>
-              <img src="pdficon.svg" class="file-icon" alt="Word icon">
+              <img src="pdfIcon.svg" class="file-icon" alt="Word icon">
             </a>
             <a href="https://youtu.be/LalEf5b2cOI?si=MApmJjclUaPSLxhP" class="file-card main-module youtube" target="_blank">
               <span class="file-title"> Nature of Dance </span>
-              <img src="youtubeicon.png" class="file-icon" alt="Youtube Icon"> 
+              <img src="youtubeIcon.png" class="file-icon" alt="Youtube Icon"> 
             </a>
           </div>
 
@@ -367,11 +371,7 @@
           <div id="pe2" class="sub-screen"> 
             <a href="PE/PE Module 2.pdf" class="file-card main-module pdf" target="_blank">
               <span class="file-title">PE 3</span>
-              <img src="pdficon.svg" class="file-icon" alt="Word icon">
-            </a>
-            <a href="https://youtu.be/LalEf5b2cOI?si=MApmJjclUaPSLxhP" class="file-card main-module youtube" target="_blank">
-              <span class="file-title"> Nature of Dance </span>
-              <img src="youtubeicon.png" class="file-icon" alt="Youtube Icon"> 
+              <img src="pdfIcon.svg" class="file-icon" alt="Word icon">
             </a>
           </div>
         </div>
