@@ -51,12 +51,21 @@
     font-weight: bold;
     margin-top: 20px;
   }
+  .correct {
+    background-color: #c8f7c5 !important; /* soft green */
+    border: 1px solid #27ae60;
+  }
+
+  .wrong {
+    background-color: #f7c5c5 !important; /* soft red */
+    border: 1px solid #c0392b;
+  }
 </style>
 </head>
 <body>
 
 <div class="quiz-container">
-  <h1>Philosophy Final Test</h1>
+  <h1>Philosophy Lesson 1 Test</h1>
   <form id="quizForm">
     <!-- Questions will be inserted here by JS -->
   </form>
@@ -69,236 +78,107 @@
 // Example question set; you can load this from a JSON file or database
 const questions = [
   {
-    q: "1. What does it mean to say the human person is an embodied spirit?",
+    q: "1. Which of the following best describes self-determination?",
     options: [
-      "The body is all that matters",
-      "The spirit is independent of the body",
-      "The body and spirit are deeply united yet distinct",
-      "Spirit eventually replaces the body"
+      "The ability to imitate others’ actions",
+      "The capability to make choices and regulate one’s own actions",
+      "The tendency to follow instincts and impulses",
+      "The refusal to make any decisions"
+    ],
+    answer: 1
+  },
+  {
+    q: "2. What sets human beings apart from animals according to the lesson?",
+    options: [
+      "Humans act purely on instinct",
+      "Humans can choose and decide freely",
+      "Humans cannot resist commands",
+      "Humans rely on conditioning"
+    ],
+    answer: 1
+  },
+  {
+    q: "3. How do animals usually act according to the text?",
+    options: [
+      "Based on critical thinking",
+      "According to predetermined responses or instincts",
+      "By making moral choices",
+      "Through reason and reflection"
+    ],
+    answer: 1
+  },
+  {
+    q: "4. What is the main indication of human freedom?",
+    options: [
+      "The ability to feel emotions",
+      "The ability to make choices and perform actions",
+      "The ability to follow rules strictly",
+      "The ability to adapt physically"
+    ],
+    answer: 1
+  },
+  {
+    q: "5. Which type of freedom refers to the absence of physical restraint?",
+    options: [
+      "Psychological freedom",
+      "Moral freedom",
+      "Physical freedom",
+      "Intellectual freedom"
     ],
     answer: 2
   },
   {
-    q: "2. What does intersubjectivity imply in human life?",
+    q: "6. What is another term for psychological freedom?",
     options: [
-      "Respecting only one’s opinion",
-      "Treating others as persons with dignity",
-      "Ignoring differences among people",
-      "Living completely alone"
+      "Freedom of speech",
+      "Freedom of choice",
+      "Freedom of movement",
+      "Freedom from rules"
     ],
     answer: 1
   },
   {
-    q: "3. Why do institutions such as family, school, and government exist?",
+    q: "7. What does moral freedom emphasize?",
     options: [
-      "To replace personal freedom",
-      "To promote order, values, and development",
-      "To limit individual choices",
-      "To control people’s happiness"
-    ],
-    answer: 1
-  },
-  {
-    q: "4. What does it mean to say that the human person is a social being?",
-    options: [
-      "Humans can live without others",
-      "Humans are self-sufficient",
-      "Humans naturally seek relationships and community",
-      "Humans are isolated individuals"
-    ],
-    answer: 2
-  },
-  {
-    q: "5. Which of the following best expresses intersubjective relationships?",
-    options: [
-      "Using others for personal gain",
-      "Building mutual understanding and empathy",
-      "Avoiding communication with others",
-      "Controlling people’s actions"
-    ],
-    answer: 1
-  },
-  {
-    q: "6. What is the main limitation of the human person in relation to others?",
-    options: [
-      "Omniscience",
-      "Temporality (living in time)",
-      "Absolute freedom",
-      "Immortality"
-    ],
-    answer: 1
-  },
-  {
-    q: "7. How can intersubjectivity be shown in everyday life?",
-    options: [
-      "By isolating oneself from others",
-      "By treating others as equals with respect and openness",
-      "By dominating or manipulating others",
-      "By ignoring differences in opinion"
-    ],
-    answer: 1
-  },
-  {
-    q: "8. How does the idea of community reflect human nature?",
-    options: [
-      "It limits individual growth",
-      "It fulfills the need for relationships and shared meaning",
-      "It destroys independence",
-      "It removes responsibility"
-    ],
-    answer: 1
-  },
-  {
-    q: "9. Which philosophical view believes that humans are the most important species on the planet and may use nature for their benefit?",
-    options: [
-      "Ecocentrism",
-      "Anthropocentrism",
-      "Biocentrism",
-      "Deep Ecology"
-    ],
-    answer: 1
-  },
-  {
-    q: "10. What does biocentrism emphasize?",
-    options: [
-      "Only human life has value",
-      "All living things have intrinsic worth",
-      "The environment exists to serve humans",
-      "Nature is meaningless without people"
-    ],
-    answer: 1
-  },
-  {
-    q: "11. Which view highlights that humans are part of a greater biological system and must act as stewards of nature?",
-    options: [
-      "Anthropocentrism",
-      "Biocentrism",
-      "Ecocentrism",
-      "Social Ecology"
-    ],
-    answer: 2
-  },
-  {
-    q: "12. What does Environmental Philosophy study?",
-    options: [
-      "Human behavior in urban settings",
-      "The moral relationship between humans and nature",
-      "Scientific causes of pollution",
-      "The structure of political systems"
-    ],
-    answer: 1
-  },
-  {
-    q: "13. What is Environmental Aesthetics concerned with?",
-    options: [
-      "Finding beauty and order in nature",
-      "Designing artificial environments",
-      "Destroying natural landscapes",
-      "Viewing nature as useless"
+      "Using freedom to uphold human dignity and goodness",
+      "Doing whatever one pleases without limits",
+      "Obeying orders without thinking",
+      "Avoiding moral responsibility"
     ],
     answer: 0
   },
   {
-    q: "14. Which principle of sustainability ensures resources for future generations?",
-    options: ["Prudence", "Integrity", "Equity", "Efficiency"],
-    answer: 2
-  },
-  {
-    q: "15. Which principle aims to reduce waste and use resources wisely?",
+    q: "8. When does a person become less free according to the text?",
     options: [
-      "Economic Efficiency",
-      "Equity",
-      "Environmental Integrity",
-      "Social Ecology"
-    ],
-    answer: 0
-  },
-  {
-    q: "16. What theory explains that social hierarchies and economic systems cause ecological problems?",
-    options: [
-      "Deep Ecology",
-      "Ecofeminism",
-      "Social Ecology",
-      "Anthropocentrism"
-    ],
-    answer: 2
-  },
-  {
-    q: "17. Which theory links the oppression of women to the exploitation of nature?",
-    options: ["Ecofeminism", "Deep Ecology", "Social Ecology", "Biocentrism"],
-    answer: 0
-  },
-  {
-    q: "18. What does Deep Ecology advocate?",
-    options: [
-      "Human superiority over nature",
-      "Equal value and intrinsic worth of all living beings",
-      "Profit-driven use of natural resources",
-      "Technology as the only solution"
+      "When he or she follows moral standards",
+      "When he or she uses freedom in a bad way",
+      "When he or she respects human dignity",
+      "When he or she makes careful choices"
     ],
     answer: 1
   },
   {
-    q: "19. What does prudence teach regarding the environment?",
+    q: "9. What does the example of the dog fetching a ball illustrate?",
     options: [
-      "To act with reason and caution toward nature",
-      "To prioritize wealth over ecology",
-      "To consume resources freely",
-      "To disregard long-term effects"
-    ],
-    answer: 0
-  },
-  {
-    q: "20. What does frugality promote?",
-    options: [
-      "Wasting less and using resources wisely",
-      "Buying more to stimulate the economy",
-      "Spending without limits",
-      "Avoiding recycling and reusing"
-    ],
-    answer: 0
-  },
-  {
-    q: "21. What is the goal of sustainable development?",
-    options: [
-      "Economic progress at all costs",
-      "Meeting present needs without harming future generations",
-      "Preserving nature by stopping development",
-      "Focusing only on industrial growth"
+      "That animals act based on freedom of choice",
+      "That animals act instinctively or through conditioning",
+      "That humans are less free than animals",
+      "That both humans and animals have equal freedom"
     ],
     answer: 1
   },
   {
-    q: "22. Which principle of sustainability is violated when companies dump toxic waste into rivers?",
+    q: "10. Which statement best describes moral responsibility in freedom?",
     options: [
-      "Environmental Integrity",
-      "Equity",
-      "Prudence",
-      "Frugality"
-    ],
-    answer: 0
-  },
-  {
-    q: "23. How can individuals practice environmental responsibility daily?",
-    options: [
-      "By wasting energy and water",
-      "By recycling, conserving, and avoiding excess",
-      "By relying only on the government",
-      "By ignoring ecological problems"
-    ],
-    answer: 1
-  },
-  {
-    q: "24. Why is the human person considered a steward of the environment?",
-    options: [
-      "Because humans dominate nature",
-      "Because humans are entrusted to care for and protect creation",
-      "Because humans are superior to other species",
-      "Because humans are not part of nature"
+      "Freedom allows a person to act without consequences",
+      "Freedom should always be guided by truth and goodness",
+      "Freedom means avoiding all forms of control",
+      "Freedom is only about following one’s desires"
     ],
     answer: 1
   }
 ];
+
 
 const form = document.getElementById("quizForm");
 
@@ -320,10 +200,29 @@ questions.forEach((item, index) => {
 
 function checkAnswers() {
   let score = 0;
+
   questions.forEach((item, idx) => {
-    const chosen = form[`q${idx}`].value;
-    if (parseInt(chosen) === item.answer) score++;
+    const options = form.querySelectorAll(`input[name="q${idx}"]`);
+    let chosenIndex = null;
+
+    options.forEach((opt, i) => {
+      const label = opt.parentElement;
+      label.classList.remove("correct", "wrong");
+
+      if (opt.checked) chosenIndex = i;
+
+      if (i === item.answer) {
+        label.classList.add("correct");
+      }
+    });
+
+    if (chosenIndex !== null && chosenIndex !== item.answer) {
+      options[chosenIndex].parentElement.classList.add("wrong");
+    }
+
+    if (parseInt(chosenIndex) === item.answer) score++;
   });
+
   document.getElementById("result").textContent =
     `You got ${score} out of ${questions.length} correct.`;
 }

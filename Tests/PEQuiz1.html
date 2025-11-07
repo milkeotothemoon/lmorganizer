@@ -45,11 +45,29 @@
     font-size: 1rem;
     cursor: pointer;
   }
+  .correct {
+    background-color: #c8f7c5 !important; /* soft green */
+    border: 1px solid #27ae60;
+  }
+
+  .wrong {
+    background-color: #f7c5c5 !important; /* soft red */
+    border: 1px solid #c0392b;
+  }
   #result {
     text-align: center;
     font-size: 1.2rem;
     font-weight: bold;
     margin-top: 20px;
+  }
+  .correct {
+    background-color: #c8f7c5 !important; /* soft green */
+    border: 1px solid #27ae60;
+  }
+
+  .wrong {
+    background-color: #f7c5c5 !important; /* soft red */
+    border: 1px solid #c0392b;
   }
 </style>
 </head>
@@ -291,13 +309,33 @@ questions.forEach((item, index) => {
 
 function checkAnswers() {
   let score = 0;
+
   questions.forEach((item, idx) => {
-    const chosen = form[`q${idx}`].value;
-    if (parseInt(chosen) === item.answer) score++;
+    const options = form.querySelectorAll(`input[name="q${idx}"]`);
+    let chosenIndex = null;
+
+    options.forEach((opt, i) => {
+      const label = opt.parentElement;
+      label.classList.remove("correct", "wrong");
+
+      if (opt.checked) chosenIndex = i;
+
+      if (i === item.answer) {
+        label.classList.add("correct");
+      }
+    });
+
+    if (chosenIndex !== null && chosenIndex !== item.answer) {
+      options[chosenIndex].parentElement.classList.add("wrong");
+    }
+
+    if (parseInt(chosenIndex) === item.answer) score++;
   });
+
   document.getElementById("result").textContent =
     `You got ${score} out of ${questions.length} correct.`;
 }
+
 </script>
 
 </body>
