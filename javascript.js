@@ -391,6 +391,6 @@ document.addEventListener("visibilitychange", async () => {
       },
     ]);
 
-    console.log("📊 Log inserted:", data, error);
+    console.log("Log inserted:", data, error);
   }
 });
