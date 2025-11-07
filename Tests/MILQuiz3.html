@@ -62,28 +62,114 @@
   </form>
   <button type="button" onclick="checkAnswers()">Submit</button>
   <div id="result"></div>
-  <button class="quizButton" onclick="window.location.href='index.html'">Go Back</button>
+  <button class="quizButton" onclick="location.href='../index.html'">Go Back</button>
 </div>
 
 <script>
 // Example question set; you can load this from a JSON file or database
 const questions = [
   {
-    q: "1. What is the speed of light in vacuum?",
-    options: ["3 x 10^8 m/s", "3 x 10^6 m/s", "1.5 x 10^8 m/s", "1 x 10^7 m/s"],
-    answer: 0
-  },
-  {
-    q: "2. Which particle has a negative charge?",
-    options: ["Proton", "Electron", "Neutron", "Photon"],
+    q: "1. What is the main goal of media literacy?",
+    options: [
+      "To restrict the use of media",
+      "To critically analyze and create media responsibly",
+      "To promote social media entertainment",
+      "To discourage media consumption"
+    ],
     answer: 1
   },
   {
-    q: "3. The unit of force is:",
-    options: ["Joule", "Pascal", "Newton", "Watt"],
+    q: "2. Which of the following is a key tip for being media and information literate?",
+    options: [
+      "Share posts immediately",
+      "Ignore the source",
+      "Verify information before sharing",
+      "Avoid reading long articles"
+    ],
     answer: 2
+  },
+  {
+    q: "3. What is one tool that Facebook for Business provides?",
+    options: [
+      "Analytics",
+      "Shopping Tags",
+      "TweetDeck",
+      "Video Calls"
+    ],
+    answer: 0
+  },
+  {
+    q: "4. What feature does Instagram use to highlight products in Stories and posts?",
+    options: [
+      "Ad Manager",
+      "Business Account",
+      "Shopping Tags",
+      "Analytics"
+    ],
+    answer: 2
+  },
+  {
+    q: "5. Which Twitter tool is used to monitor multiple accounts and timelines?",
+    options: [
+      "TweetDeck",
+      "Messenger",
+      "Pages",
+      "Ad Manager"
+    ],
+    answer: 0
+  },
+  {
+    q: "6. Which of the following is an advantage of media and information to education?",
+    options: [
+      "Tempts people to buy unnecessary items",
+      "Improves the quality of education and motivates learners",
+      "Leads to addiction to social media",
+      "Encourages spreading fake news"
+    ],
+    answer: 1
+  },
+  {
+    q: "7. What is a disadvantage of media and information in politics?",
+    options: [
+      "Educates citizens on political issues",
+      "Can be used to manipulate news for propaganda",
+      "Promotes transparency in government",
+      "Allows citizens to express opinions"
+    ],
+    answer: 1
+  },
+  {
+    q: "8. Which of the following is an advantage of media in the economy?",
+    options: [
+      "Can cause chaos through false reports",
+      "Can promote tourism and attract investors",
+      "Can distract workers from tasks",
+      "Can misinform the public about policies"
+    ],
+    answer: 1
+  },
+  {
+    q: "9. What is an example of how media benefits society?",
+    options: [
+      "Encourages productive hobbies and advocacy groups",
+      "Promotes materialism and worldliness",
+      "Distracts people from their work",
+      "Causes addiction to social media"
+    ],
+    answer: 0
+  },
+  {
+    q: "10. Which statement best describes a media literate individual?",
+    options: [
+      "Shares all online content freely",
+      "Reads and verifies information before sharing",
+      "Believes everything seen online",
+      "Avoids using social media completely"
+    ],
+    answer: 1
   }
 ];
+
 
 const form = document.getElementById("quizForm");
 

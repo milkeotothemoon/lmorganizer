@@ -62,26 +62,111 @@
   </form>
   <button type="button" onclick="checkAnswers()">Submit</button>
   <div id="result"></div>
-  <button class="quizButton" onclick="window.location.href='index.html'">Go Back</button>
+  <button class="quizButton" onclick="location.href='../index.html'">Go Back</button>
 </div>
 
 <script>
 // Example question set; you can load this from a JSON file or database
 const questions = [
   {
-    q: "1. What is the speed of light in vacuum?",
-    options: ["3 x 10^8 m/s", "3 x 10^6 m/s", "1.5 x 10^8 m/s", "1 x 10^7 m/s"],
+    q: "1. What does MOOC stand for?",
+    options: [
+      "Massive Open Online Course",
+      "Modern Online Open Classroom",
+      "Managed Online Organized Course",
+      "Massive Online Open Curriculum"
+    ],
     answer: 0
   },
   {
-    q: "2. Which particle has a negative charge?",
-    options: ["Proton", "Electron", "Neutron", "Photon"],
+    q: "2. Which of the following is NOT a characteristic of MOOCs?",
+    options: [
+      "Massive enrollment",
+      "Open access to anyone",
+      "Requires physical attendance",
+      "Online-based learning"
+    ],
+    answer: 2
+  },
+  {
+    q: "3. What device is an example of wearable technology that tracks fitness activities?",
+    options: [
+      "Smartwatch",
+      "Desktop computer",
+      "Projector",
+      "Printer"
+    ],
+    answer: 0
+  },
+  {
+    q: "4. Which wearable technology links up with your phone and can take photographs?",
+    options: [
+      "Smartglasses",
+      "Fitness tracker",
+      "Hearables",
+      "VR headset"
+    ],
+    answer: 0
+  },
+  {
+    q: "5. What does a VR headset primarily do?",
+    options: [
+      "Allows users to view 3D movies only",
+      "Shows a computer-generated virtual environment",
+      "Tracks a person’s heartbeat",
+      "Projects holographic images in real life"
+    ],
     answer: 1
   },
   {
-    q: "3. The unit of force is:",
-    options: ["Joule", "Pascal", "Newton", "Watt"],
-    answer: 2
+    q: "6. What does 'ubiquitous learning' mean?",
+    options: [
+      "Learning only inside the classroom",
+      "Learning anytime, anywhere, with anyone",
+      "Learning through printed books",
+      "Learning only with mobile phones"
+    ],
+    answer: 1
+  },
+  {
+    q: "7. Which of the following best describes a paperless society?",
+    options: [
+      "A society that uses more books",
+      "A society that relies on digital and electronic transactions",
+      "A society that avoids using technology",
+      "A society that promotes handwritten letters"
+    ],
+    answer: 1
+  },
+  {
+    q: "8. What technology allows digital designs to be physically produced layer by layer?",
+    options: [
+      "3D printing",
+      "Virtual reality",
+      "Augmented reality",
+      "Holography"
+    ],
+    answer: 0
+  },
+  {
+    q: "9. Which of the following is NOT an example of wearable technology?",
+    options: [
+      "VR headset",
+      "Smartwatch",
+      "Fitness tracker",
+      "Desktop computer"
+    ],
+    answer: 3
+  },
+  {
+    q: "10. What is one major challenge of going paperless in the Philippines?",
+    options: [
+      "Lack of electricity and Internet access in some areas",
+      "Lack of people interested in technology",
+      "Too much use of plastic materials",
+      "Government ban on digital transactions"
+    ],
+    answer: 0
   }
 ];
 

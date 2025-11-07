@@ -62,28 +62,114 @@
   </form>
   <button type="button" onclick="checkAnswers()">Submit</button>
   <div id="result"></div>
-  <button class="quizButton" onclick="window.location.href='index.html'">Go Back</button>
+  <button class="quizButton" onclick="location.href='../index.html'">Go Back</button>
 </div>
 
 <script>
 // Example question set; you can load this from a JSON file or database
 const questions = [
   {
-    q: "1. What is the speed of light in vacuum?",
-    options: ["3 x 10^8 m/s", "3 x 10^6 m/s", "1.5 x 10^8 m/s", "1 x 10^7 m/s"],
-    answer: 0
-  },
-  {
-    q: "2. Which particle has a negative charge?",
-    options: ["Proton", "Electron", "Neutron", "Photon"],
+    q: "1. What law in the Philippines addresses legal issues concerning online interactions and the Internet?",
+    options: [
+      "Republic Act No. 9995",
+      "Republic Act No. 10175",
+      "Republic Act No. 1425",
+      "Republic Act No. 9003"
+    ],
     answer: 1
   },
   {
-    q: "3. The unit of force is:",
-    options: ["Joule", "Pascal", "Newton", "Watt"],
+    q: "2. Which of the following is an example of the influence of media on the economy?",
+    options: [
+      "People basing beauty on physical appearance",
+      "Online shopping through Shopee and Lazada",
+      "Textklamo hotline for citizen journalism",
+      "Teachers using PowerPoint presentations"
+    ],
+    answer: 1
+  },
+  {
+    q: "3. What is the purpose of the Cybercrime Prevention Act of 2012?",
+    options: [
+      "To promote online shopping",
+      "To regulate political advertisements",
+      "To address legal issues concerning online interactions",
+      "To support citizen journalism"
+    ],
     answer: 2
+  },
+  {
+    q: "4. What term refers to obtaining someone’s personal or financial information to commit fraud?",
+    options: [
+      "Cyber-squatting",
+      "Phishing",
+      "Identity theft",
+      "Libel"
+    ],
+    answer: 2
+  },
+  {
+    q: "5. Which example best shows the role of media in education?",
+    options: [
+      "People using social media to report crimes",
+      "Using Google Classroom for online learning",
+      "Posting about political campaigns",
+      "Streaming K-pop songs on YouTube"
+    ],
+    answer: 1
+  },
+  {
+    q: "6. What does 'cybersex' refer to according to the Cybercrime Prevention Act?",
+    options: [
+      "Using fake social media accounts",
+      "Engaging in lascivious acts through a computer system",
+      "Spreading false information online",
+      "Taking photos without consent"
+    ],
+    answer: 1
+  },
+  {
+    q: "7. Which law penalizes photo or video voyeurism?",
+    options: [
+      "Republic Act No. 10175",
+      "Republic Act No. 9995",
+      "Republic Act No. 1425",
+      "Republic Act No. 8484"
+    ],
+    answer: 1
+  },
+  {
+    q: "8. What is an example of citizen journalism?",
+    options: [
+      "Posting selfies on Instagram",
+      "Sending reports through Textklamo hotline",
+      "Downloading movies online",
+      "Sharing memes on Facebook"
+    ],
+    answer: 1
+  },
+  {
+    q: "9. What is 'cyber-squatting'?",
+    options: [
+      "Creating fake news websites",
+      "Acquiring a domain name in bad faith to profit or mislead",
+      "Using online learning platforms",
+      "Defaming others online"
+    ],
+    answer: 1
+  },
+  {
+    q: "10. Which of the following best shows media’s influence on society?",
+    options: [
+      "Students enrolling in Massive Open Online Courses",
+      "People reporting local problems on social media",
+      "Government agencies posting announcements online",
+      "TV commercials shaping beauty standards"
+    ],
+    answer: 3
   }
 ];
+
 
 const form = document.getElementById("quizForm");
 
