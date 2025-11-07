@@ -273,14 +273,46 @@ document.addEventListener('DOMContentLoaded', () => {
 async function uploadFile(subject) {
   const input = document.getElementById(`fileInput-${subject}`);
   const file = input.files[0];
-  if (!file) return;
 
-  const { error } = await supabase.storage
-    .from("Storage")
-    .upload(`${subject}/${file.name}`, file);
+  if (!file) {
+    alert("Please choose a file to upload first.");
+    return;
+  }
 
-  if (error) console.error("Upload error:", error);
-  else loadFiles(subject);
+  // 50MB limit
+  if (file.size > 50 * 1024 * 1024) {
+    alert("File too large! Please upload under 50MB.");
+    return;
+  }
+
+  try {
+    // Check for duplicates before uploading
+    const { data: existing, error: listError } = await supabase.storage
+      .from("Storage")
+      .list(subject);
+
+    if (listError) throw listError;
+
+    if (existing.some(f => f.name === file.name)) {
+      alert("A file with this name already exists in this subject.");
+      return;
+    }
+
+    // Upload file
+    const { error: uploadError } = await supabase.storage
+      .from("Storage")
+      .upload(`${subject}/${file.name}`, file);
+
+    if (uploadError) throw uploadError;
+
+    // Success feedback
+    alert("File uploaded successfully!");
+    loadFiles(subject);
+
+  } catch (err) {
+    console.error("Upload failed:", err.message);
+    alert("Upload failed. Please try again.");
+  }
 }
 
 async function loadFiles(subject) {
