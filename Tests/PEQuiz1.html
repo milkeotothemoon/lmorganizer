@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Test</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    padding: 20px;
+  }
+  .quiz-container {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  h1 { text-align: center; }
+  .question {
+    font-weight: bold;
+    margin: 20px 0 10px;
+  }
+  .options label {
+    display: block;
+    margin: 6px 0;
+    padding: 8px;
+    border-radius: 6px;
+    background: #eef;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .options input[type="radio"] { margin-right: 8px; }
+  .options label:hover { background: #dde; }
+  button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #4a90e2;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  #result {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+  <h1>PE Lesson 1 Test</h1>
+  <form id="quizForm">
+    <!-- Questions will be inserted here by JS -->
+  </form>
+  <button type="button" onclick="checkAnswers()">Submit</button>
+  <div id="result"></div>
+  <button class="quizButton" onclick="location.href='../index.html'">Go Back</button>
+</div>
+
+<script>
+// Example question set; you can load this from a JSON file or database
+const questions = [
+  {
+    q: "1. What is the main goal of observing personal safety protocols during MVPA?",
+    options: [
+      "To improve dancing skills only",
+      "To prevent injuries and ensure safety during physical activities",
+      "To increase the intensity of the workout",
+      "To compete better with others"
+    ],
+    answer: 1
+  },
+  {
+    q: "2. Which of the following is a personal safety protocol before engaging in physical activity?",
+    options: [
+      "Start exercising immediately",
+      "Warm up before performing any strenuous activity",
+      "Drink water only after exercise",
+      "Skip stretching to save time"
+    ],
+    answer: 1
+  },
+  {
+    q: "3. What should you do after a workout to normalize your heart rate?",
+    options: [
+      "Cooling down",
+      "Warming up",
+      "Overexertion",
+      "Stretching only"
+    ],
+    answer: 0
+  },
+  {
+    q: "4. How often should you drink fluids during exercise to prevent dehydration?",
+    options: [
+      "Every 10–15 minutes",
+      "Only after the activity",
+      "Before sleeping",
+      "Every hour"
+    ],
+    answer: 0
+  },
+  {
+    q: "5. What is dehydration?",
+    options: [
+      "An excessive loss of water from the body",
+      "A lack of oxygen in the muscles",
+      "An increase in body temperature",
+      "A decrease in heart rate"
+    ],
+    answer: 0
+  },
+  {
+    q: "6. Which condition refers to an alarming rise in body temperature?",
+    options: [
+      "Hypothermia",
+      "Hyperthermia",
+      "Overexertion",
+      "Dehydration"
+    ],
+    answer: 1
+  },
+  {
+    q: "7. What should be avoided to prevent overexertion?",
+    options: [
+      "Skipping warm-up exercises",
+      "Pacing your workout properly",
+      "Hydrating regularly",
+      "Resting between sets"
+    ],
+    answer: 0
+  },
+  {
+    q: "8. What is a sign of hypothermia?",
+    options: [
+      "Sweating heavily",
+      "Pale, cold skin and shivering",
+      "Fast heartbeat",
+      "Excessive thirst"
+    ],
+    answer: 1
+  },
+  {
+    q: "9. Which of the following is NOT a factor in creating a personal safety protocol?",
+    options: [
+      "Knowledge and awareness",
+      "Ability",
+      "State of mind",
+      "Popularity"
+    ],
+    answer: 3
+  },
+  {
+    q: "10. What should you wear when exercising in hot weather?",
+    options: [
+      "Thick black clothes",
+      "White or light-colored, breathable clothing",
+      "Plastic or rubber suits",
+      "Heavy jackets"
+    ],
+    answer: 1
+  },
+  {
+    q: "11. Which of the following should you do if a person shows signs of hypothermia?",
+    options: [
+      "Let them lie down and rest",
+      "Replace wet clothes with dry ones and warm the body",
+      "Give them cold water to drink",
+      "Ignore the symptoms"
+    ],
+    answer: 1
+  },
+  {
+    q: "12. What is the normal body temperature range for humans?",
+    options: [
+      "35.0–36.0°C",
+      "36.5–37.5°C",
+      "37.5–39.0°C",
+      "34.0–35.0°C"
+    ],
+    answer: 1
+  },
+  {
+    q: "13. Which activity should include proper safety precautions due to its vigorous nature?",
+    options: [
+      "Watching TV",
+      "Cheerdancing",
+      "Reading a book",
+      "Meditation"
+    ],
+    answer: 1
+  },
+  {
+    q: "14. Which of the following should be done during warm-up?",
+    options: [
+      "Perform slow, gentle stretching",
+      "Do high-intensity jumping immediately",
+      "Avoid movement to save energy",
+      "Skip breathing exercises"
+    ],
+    answer: 0
+  },
+  {
+    q: "15. Which condition is caused by too much training or pushing too hard?",
+    options: [
+      "Overexertion",
+      "Hypothermia",
+      "Hyperthermia",
+      "Dehydration"
+    ],
+    answer: 0
+  },
+  {
+    q: "16. Why is fluid replacement important during MVPA?",
+    options: [
+      "It helps maintain hydration and prevent heat-related disorders",
+      "It helps the body lose more water",
+      "It slows down metabolism",
+      "It causes the body to overheat"
+    ],
+    answer: 0
+  },
+  {
+    q: "17. What should be done if signs of heat exhaustion appear?",
+    options: [
+      "Continue the activity",
+      "Slow down, rest, and drink fluids",
+      "Wear thicker clothing",
+      "Ignore and push through"
+    ],
+    answer: 1
+  },
+  {
+    q: "18. What part of the body loses heat most easily?",
+    options: [
+      "Head, hands, and feet",
+      "Chest and back",
+      "Legs and arms",
+      "Stomach area"
+    ],
+    answer: 0
+  },
+  {
+    q: "19. What is the best reason to observe safety protocols during MVPA?",
+    options: [
+      "To avoid accidents and maintain overall well-being",
+      "To win in competitions",
+      "To impress others",
+      "To lose weight faster"
+    ],
+    answer: 0
+  },
+  {
+    q: "20. What should be avoided when performing in a wet environment?",
+    options: [
+      "Running barefoot",
+      "Performing stunts on slippery surfaces",
+      "Using dry towels",
+      "Wearing rubber shoes"
+    ],
+    answer: 1
+  }
+];
+
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((item, index) => {
+  const questionDiv = document.createElement("div");
+  questionDiv.className = "question-block";
+  questionDiv.innerHTML = `
+    <div class="question">${item.q}</div>
+    <div class="options">
+      ${item.options.map((opt,i)=>`
+        <label>
+          <input type="radio" name="q${index}" value="${i}">
+          ${opt}
+        </label>`).join("")}
+    </div>
+  `;
+  form.appendChild(questionDiv);
+});
+
+function checkAnswers() {
+  let score = 0;
+  questions.forEach((item, idx) => {
+    const chosen = form[`q${idx}`].value;
+    if (parseInt(chosen) === item.answer) score++;
+  });
+  document.getElementById("result").textContent =
+    `You got ${score} out of ${questions.length} correct.`;
+}
+</script>
+
+</body>
+</html>
